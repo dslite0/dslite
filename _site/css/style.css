@@ -4,7 +4,7 @@
 }
 
 body {
-    color: #151515;
+    color: #584739;
     font-family: 'MS PGothic';
     background-image: url('https://files.catbox.moe/ndg0lc.png');
     background-color:#ffffff;
@@ -153,9 +153,17 @@ body {
     }
 }
 
-
-
-/* FORMATTING */
+#statuscafe {
+    padding: .5em;
+    background-color: #fdf2cb;
+    border: 1px solid #e6b147;
+}
+#statuscafe-username {
+    margin-bottom: .5em;
+}
+#statuscafe-content {
+    margin: 0 1em 0.5em 1em;
+}
 
 .center {
     display: block;
@@ -163,3 +171,10 @@ body {
     margin-right: auto;
 }
 
+/* TEXT FORMATTING */
+
+h2 {
+    border-bottom: solid;
+    border-width: 1px;
+    border-color: #584739;
+}
