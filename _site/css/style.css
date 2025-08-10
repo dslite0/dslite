@@ -176,6 +176,14 @@ body {
 
 /* TEXT FORMATTING */
 
+a {
+    color: #ff8282
+}
+
+a:hover {
+    color: #ffffff
+}
+
 h1 {
     margin-top: 10px;
     text-align: center;
