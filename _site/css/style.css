@@ -85,9 +85,10 @@ body {
     height: auto;
 }
 
-.content h1 {
-    margin-top: 10px;
-    text-align: center;
+.container > div.main > div {
+    padding: 5px;
+    background-color: #fdf2cb;
+    border: 1px solid #e6b147;
 }
 
 .counter {
@@ -153,6 +154,14 @@ body {
     }
 }
 
+.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* STATUS CAFE */
+
 #statuscafe {
     padding: .5em;
     background-color: #fdf2cb;
@@ -165,13 +174,12 @@ body {
     margin: 0 1em 0.5em 1em;
 }
 
-.center {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-}
-
 /* TEXT FORMATTING */
+
+h1 {
+    margin-top: 10px;
+    text-align: center;
+}
 
 h2 {
     border-bottom: solid;
