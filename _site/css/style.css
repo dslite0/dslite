@@ -18,10 +18,10 @@ body {
     background-color: #fccc6e;
     display: grid;
     grid-template-areas:
-    "header header"
-    "navbar content"
-    "footer footer";
-    grid-template-columns: 1fr 3fr;
+    "header header header "
+    "navbar content sidebar"
+    "footer footer footer";
+    grid-template-columns: 1fr 3fr 1fr;
     gap: 5px;
     padding: 5px;
     max-width: 700px;
@@ -45,7 +45,9 @@ body {
 
 .container > div.navbar {
     grid-area: navbar;
-    min-height: 450px;
+    max-height: 480px;
+    min-height: 480px;
+    overflow-y:auto;
 }
 
 .container > div.navbar > ul {
@@ -75,8 +77,16 @@ body {
 
 .container > div.content {
     grid-area: content;
+    max-height: 450px;
     min-height: 450px;
     padding: 15px;
+    overflow-y:auto;
+}
+
+.container > div.sidebar {
+    grid-area: sidebar;
+    max-height: 480px;
+    min-height: 480px;
 }
 
 .container > div.footer {
@@ -98,16 +108,70 @@ body {
     right:3px;
 }
 
+/* SIDEBAR MARQUEE */
+
+@keyframes scroll-r2l {
+  from {
+    transform: translateY(-100%);
+  }
+
+  to {
+    transform: translateY(0);
+  }
+}
+
+.scroll-r2l {
+  animation: scroll-r2l 5s linear infinite;
+}
+
+.overflow {
+    overflow: hidden;
+    height: 100%;
+}
+
 .marquee {
+  display: flex;
+  box-sizing: unset;
+  width: 100%;
+  height: 200%;
+  overflow: hidden;
+  overflow-y: hidden;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.marquee-items {
+  display: flex;
+  align-items: center;
+  height: 100%; /* This line is extremely important to prevent bugs on some browsers such as FireFox */
+  width: auto;
+  position: relative;
+  flex-direction: column;
+  gap: 10px;
+  
+}
+
+/* Changes to this class will only affect the children
+of the marquee-items, and not all of their descendants.
+Make changes here if you want spaces in-between the
+marquee items or other effects and styles!*/
+.marquee-items > * {
+  margin: 0;
+}
+
+
+/* FOOTER MARQUEE */
+
+.marquee-footer {
     height: 50px;
     overflow: hidden;
     position: relative;
     background: #ffefb4;
     color: #ffefb4;
-    border: 1px solid #ffefb4;
 }
 
-.marquee p {
+.marquee-footer p {
     position: absolute;
     width: 100%;
     height: 100%;

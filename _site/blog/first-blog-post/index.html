@@ -216,7 +216,7 @@
 
                 <ul>
                     <li>
-                        <a href="/characters">my ocs</a>
+                        <a href="/ocs">my ocs</a>
                     </li>
                 </ul>
 
@@ -231,6 +231,10 @@
 
                     <li>
                         <a href="/mycology">mycology</a>
+                    </li>
+
+                    <li>
+                        <a href="/obsidian">obsidian</a>
                     </li>
 
                 </ul>
@@ -272,20 +276,36 @@
                 </main>
             </div>
 
+            <!-- SIDEBAR -->
+            <div class="sidebar">
+                <div class="overflow">
+                    <div class="marquee">
+                        <div class="marquee-items">
+                            <!-- warriors stamp -->
+                            <img src="https://files.catbox.moe/iie7z0.png" class="thumbnail">
+                            <!-- murderbot stamp -->
+                            <img src="https://files.catbox.moe/76v0yc.png" class="thumbnail">
+                            <!-- signalis stamp -->
+                            <img src="https://files.catbox.moe/oo8n2w.png" class="thumbnail">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div class="footer">
-                <div class="marquee">
+                <div class="marquee-footer">
 
                     <p>
                         <!-- nekoweb button -->
-                        <a href="https://nekoweb.org/" target="_blank"><img src="https://nekoweb.org/assets/buttons/button5.gif" class="thumbnail"></a><!-- button by max.nekoweb.org -->
+                        <a href="https://nekoweb.org/" target="_blank"><img src="https://nekoweb.org/assets/buttons/button5.gif" class="thumbnail" alt="Nekoweb Button"></a><!-- button by max.nekoweb.org -->
                         <!-- palestine button -->
-                         <a href="https://decolonizepalestine.com/"><img src="https://files.catbox.moe/izzae7.png" class="thumbnail"></a>
+                         <a href="https://decolonizepalestine.com/"><img src="https://files.catbox.moe/izzae7.png" class="thumbnail" alt="Stand with Palestine Button"></a>
                         <!-- nukochannel button -->
-                        <a href="https://nukochannel.neocities.org" target="_blank"><img src="https://nukochannel.neocities.org/NukoChannelButton.gif" class="thumbnail"></a>
+                        <a href="https://nukochannel.neocities.org" target="_blank"><img src="https://nukochannel.neocities.org/NukoChannelButton.gif" class="thumbnail" alt="Nukochannel Button"></a>
                         <!-- ao3 button -->
-                        <a href="https://archiveofourown.org/" target="_blank"><img src="https://files.catbox.moe/1cqxof.gif" class="thumbnail"></a>
+                        <a href="https://archiveofourown.org/" target="_blank"><img src="https://files.catbox.moe/1cqxof.gif" class="thumbnail" alt="Archive of Our Own Button"></a>
                         <!-- trans flag button-->
-                        <img src="https://files.catbox.moe/194w2x.png" class="thumbnail">
+                        <img src="https://files.catbox.moe/194w2x.png" class="thumbnail" alt="Trans Flag Button">
                     </p>
                     
                 </div>
@@ -293,6 +313,35 @@
 
         <!-- CONTAINER END -->
         </div>
+
+        <script>
+            function handleMarquee() {
+            // Get all marquees on page
+            const marquees = document.querySelectorAll(".marquee");
+
+            // Loop through each marquee
+            marquees.forEach((marquee) => {
+                // Get the main container and clone it
+                // And then add the clone to the marquee
+                const container = marquee.querySelector(".marquee-items");
+                let clone = container.cloneNode(true);
+                marquee.appendChild(clone);
+                
+                // Finally, add the scroll class at the same time so there is no gaps in the scrolling effect
+                // We also determine if the items should be scrolling right-to-left instead by default, and adjust the marquees flex
+                // direction and which animation the containers use if so
+                if (marquee.dataset.direction == "right") {
+                marquee.style.flexDirection = "row-reverse";
+                container.classList.add("scroll-l2r");
+                clone.classList.add("scroll-l2r");
+                } else {
+                container.classList.add("scroll-r2l");
+                clone.classList.add("scroll-r2l");
+                }
+            });
+            }
+            handleMarquee();
+        </script>
 
     </body>
 
