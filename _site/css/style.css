@@ -233,7 +233,7 @@ ul.taglist li {
 }
 
 ul.taglist li:after {
-  content: ", ";
+  content: " ";
 }
 
 ul.taglist li:last-child:after {
