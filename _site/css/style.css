@@ -167,9 +167,11 @@ body {
     background-color: #fdf2cb;
     border: 1px solid #e6b147;
 }
+
 #statuscafe-username {
     margin-bottom: .5em;
 }
+
 #statuscafe-content {
     margin: 0 1em 0.5em 1em;
 }
@@ -177,11 +179,18 @@ body {
 /* TEXT FORMATTING */
 
 a {
-    color: #ff8282
+    color: #ff8282;
+}
+
+::selection {
+    background: #8f6f55;
+    color: #fffefb;
+;
 }
 
 a:hover {
-    color: #ffffff
+    color: #fffefb;
+    font-weight: 900;
 }
 
 h1 {
@@ -191,6 +200,12 @@ h1 {
 
 h2 {
     border-bottom: solid;
-    border-width: 1px;
-    border-color: #584739;
+    border-width: 0.75px;
+    border-color: #9b6b44;
+}
+
+ul.indent {
+    list-style: none;
+    margin: 10px;
+    padding: 0px;
 }
