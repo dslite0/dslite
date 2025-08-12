@@ -121,7 +121,7 @@ body {
 }
 
 .scroll-r2l {
-  animation: scroll-r2l 5s linear infinite;
+  animation: scroll-r2l 7s linear infinite;
 }
 
 .overflow {
@@ -159,7 +159,6 @@ marquee items or other effects and styles!*/
 .marquee-items > * {
   margin: 0;
 }
-
 
 /* FOOTER MARQUEE */
 
