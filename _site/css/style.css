@@ -121,7 +121,7 @@ body {
 }
 
 .scroll-r2l {
-  animation: scroll-r2l 7s linear infinite;
+  animation: scroll-r2l 10s linear infinite;
 }
 
 .overflow {
@@ -133,7 +133,7 @@ body {
   display: flex;
   box-sizing: unset;
   width: 100%;
-  height: 200%;
+  height: 300%;
   overflow: hidden;
   overflow-y: hidden;
   justify-content: center;
@@ -171,7 +171,6 @@ marquee items or other effects and styles!*/
 }
 
 .marquee-footer p {
-    position: absolute;
     width: 100%;
     height: 100%;
     margin: 0;
