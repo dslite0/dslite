@@ -1,0 +1,12 @@
+---
+layout: layouts/base.html
+title: "my ocs"
+eleventyExcludeFromCollections: true
+---
+
+<h1>characters</h1>
+<ul>
+    {% for oc in collections.ocs %}
+    <li><a href="{{ oc.url }}">{{ oc.data.title }}</a></li>
+    {% endfor %}
+</ul>
