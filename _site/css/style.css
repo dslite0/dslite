@@ -133,7 +133,7 @@ body {
   display: flex;
   box-sizing: unset;
   width: 100%;
-  height: 300%;
+  height: max-content;
   overflow: hidden;
   overflow-y: hidden;
   justify-content: center;
@@ -149,6 +149,7 @@ body {
   position: relative;
   flex-direction: column;
   gap: 10px;
+  margin-top: 10px;
   
 }
 
@@ -157,7 +158,8 @@ of the marquee-items, and not all of their descendants.
 Make changes here if you want spaces in-between the
 marquee items or other effects and styles!*/
 .marquee-items > * {
-  margin: 0;
+  margin: 10;
+  gap: 10px;
 }
 
 /* FOOTER MARQUEE */
@@ -168,13 +170,16 @@ marquee items or other effects and styles!*/
     position: relative;
     background: #ffefb4;
     color: #ffefb4;
+    display: flex;
 }
 
-.marquee-footer div {
+.marquee-footer-content {
     white-space: nowrap;
     height: 100%;
     width: max-content;
-    margin: 0;
+    margin-top: 0;
+    margin-bottom:0;
+    margin-left: 10px;
     display: flex;
     align-items: center;
     gap: 10px;
@@ -187,9 +192,13 @@ marquee items or other effects and styles!*/
     animation: scroll-left 20s linear infinite;
 }
 
+.marquee-footer:hover .marquee-footer-content {
+    animation-play-state: paused;
+}
+
 @-moz-keyframes scroll-left {
     0% {
-        -moz-transform: translateX(100%);
+        -moz-transform: translateX(0%);
     }
     100% {
         -moz-transform: translateX(-100%);
@@ -198,7 +207,7 @@ marquee items or other effects and styles!*/
 
 @-webkit-keyframes scroll-left {
     0% {
-        -webkit-transform: translateX(100%);
+        -webkit-transform: translateX(0%);
     }
     100% {
         -webkit-transform: translateX(-100%);
@@ -207,9 +216,9 @@ marquee items or other effects and styles!*/
 
 @keyframes scroll-left {
     0% {
-        -moz-transform: translateX(100%);
-        -webkit-transform: translateX(100%);
-        transform: translateX(100%);
+        -moz-transform: translateX(0%);
+        -webkit-transform: translateX(0%);
+        transform: translateX(0%);
     }
     100% {
         -moz-transform: translateX(-100%);
