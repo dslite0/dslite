@@ -110,16 +110,6 @@ body {
 
 /* SIDEBAR MARQUEE */
 
-@keyframes scroll-r2l {
-  from {
-    transform: translateY(-100%);
-  }
-
-  to {
-    transform: translateY(0);
-  }
-}
-
 .scroll-r2l {
   animation: scroll-r2l 10s linear infinite;
 }
@@ -142,24 +132,57 @@ body {
 }
 
 .marquee-items {
-  display: flex;
-  align-items: center;
-  height: 100%; /* This line is extremely important to prevent bugs on some browsers such as FireFox */
-  width: auto;
-  position: relative;
-  flex-direction: column;
-  gap: 10px;
-  margin-top: 10px;
+    display: flex;
+    align-items: center;
+    height: 100%; /* This line is extremely important to prevent bugs on some browsers such as FireFox */
+    width: auto;
+    position: relative;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 10px;
+    -moz-animation: scroll-down 2s linear infinite;
+    -webkit-animation: scroll-down 2s linear infinite;
+    animation: scroll-down 20s linear infinite;
   
 }
 
-/* Changes to this class will only affect the children
-of the marquee-items, and not all of their descendants.
-Make changes here if you want spaces in-between the
-marquee items or other effects and styles!*/
 .marquee-items > * {
   margin: 10;
-  gap: 10px;
+}
+
+.marquee:hover .marquee-items {
+    animation-play-state: paused;
+}
+
+@-moz-keyframes scroll-down {
+    0% {
+        -moz-transform: translateY(-100%);
+    }
+    100% {
+        -moz-transform: translateY(0%);
+    }
+}
+
+@-webkit-keyframes scroll-down {
+    0% {
+        -webkit-transform: translateY(-100%);
+    }
+    100% {
+        -webkit-transform: translateY(0%);
+    }
+}
+
+@keyframes scroll-down {
+    0% {
+        -moz-transform: translateY(-100%);
+        -webkit-transform: translateY(-100%);
+        transform: translateY(-100%);
+    }
+    100% {
+        -moz-transform: translateY(0%);
+        -webkit-transform: translateY(-0);
+        transform: translateY(0%);
+    }
 }
 
 /* FOOTER MARQUEE */
