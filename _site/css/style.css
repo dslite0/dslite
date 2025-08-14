@@ -343,3 +343,8 @@ ul.taglist li:after {
 ul.taglist li:last-child:after {
     content: "";
 }
+
+.postlist {
+    list-style: none;
+    padding-left: 10px;
+}
