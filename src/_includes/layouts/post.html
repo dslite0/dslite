@@ -3,7 +3,7 @@
 {% block content %}
 
     <h1>{{ title }}</h1>
-    <b>date:</b> {{ date }}<br>
+    <b>date:</b> {{ page.date | formatDate}}<br>
     <b>tags:</b>
     <ul class="taglist">
         {% for tag in tags %}
