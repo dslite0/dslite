@@ -12,6 +12,7 @@ body {
     min-height: 100dvh;
     align-items: center;
     justify-content: center;
+    line-height: 150%;
 }
 
 .container {
@@ -97,7 +98,10 @@ body {
 }
 
 div.subdiv {
-    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 20px;
     background-color: #fdf2cb;
     border: 1px solid #e6b147;
     overflow: hidden;
@@ -293,10 +297,6 @@ div.subdiv {
     color: #fffefb;
     background: #ff8282;
 ;
-}
-
-p {
-    line-height: 150%;
 }
 
 a {
