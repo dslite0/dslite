@@ -47,6 +47,7 @@ body {
     grid-area: navbar;
     max-height: 480px;
     min-height: 480px;
+    width: 1fr;
     overflow-y:auto;
 }
 
@@ -99,6 +100,7 @@ div.subdiv {
     padding: 10px;
     background-color: #fdf2cb;
     border: 1px solid #e6b147;
+    overflow: hidden;
 }
 
 .counter {
@@ -288,7 +290,6 @@ div.subdiv {
 /* TEXT FORMATTING */
 
 ::selection {
-    background: #76573d;
     color: #fffefb;
 ;
 }
@@ -304,6 +305,7 @@ a {
 a:hover {
     color: #fffefb;
     font-weight: 900;
+    text-shadow: 0 0 5px #fffefb;
 }
 
 h1 {
