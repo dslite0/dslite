@@ -1,0 +1,873 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>lea huynh</title>
+		<description></description>
+
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        
+        <link href="https://toyhou.se/css/main.css?cachebust=1753712672" rel="stylesheet">
+        <link href="https://toyhou.se/css/site_black-forest.css?cachebust=1753712672" rel="stylesheet">
+        
+		<link rel="stylesheet" href="/css/bootstrap.css" />
+
+        <script type="text/javascript">
+            // <![CDATA[
+            var sparks=75; // how many sparks per clicksplosion
+            var speed=33; // how fast - smaller is faster
+            var bangs=5; // how many can be launched simultaneously (note that using too many can slow the script down)
+            var colours=new Array('#03f', '#f03', '#0e0', '#93f', '#0cf', '#f93', '#f0c'); 
+            //                     blue    red     green   purple  cyan    orange  pink
+
+            /****************************
+            *   Clicksplosion Effect    *
+            *(c)2012-3 mf2fm web-design *
+            *  http://www.mf2fm.com/rv  *
+            * DON'T EDIT BELOW THIS BOX *
+            ****************************/
+            var intensity=new Array();
+            var Xpos=new Array();
+            var Ypos=new Array();
+            var dX=new Array();
+            var dY=new Array();
+            var stars=new Array();
+            var decay=new Array();
+            var timers=new Array();
+            var swide=800;
+            var shigh=600;
+            var sleft=sdown=0;
+            var count=0;
+
+            function addLoadEvent(funky) {
+            var oldonload=window.onload;
+            if (typeof(oldonload)!='function') window.onload=funky;
+            else window.onload=function() {
+                if (oldonload) oldonload();
+                funky();
+            }
+            }
+
+            addLoadEvent(clicksplode);
+
+            function clicksplode() { if (document.getElementById) {
+            var i, j;
+            window.onscroll=set_scroll;
+            window.onresize=set_width;
+            document.onclick=eksplode;
+            set_width();
+            set_scroll();
+            for (i=0; i<bangs; i++) for (j=sparks*i; j<sparks+sparks*i; j++) {
+                stars[j]=createDiv('*', 13);
+                document.body.appendChild(stars[j]);
+            }
+            }}
+
+            function createDiv(char, size) {
+            var div, sty;
+            div=document.createElement('div');
+            sty=div.style;
+            sty.font=size+'px monospace';
+            sty.position='absolute';
+            sty.backgroundColor='transparent';
+            sty.visibility='hidden';
+            sty.zIndex='101';
+            div.appendChild(document.createTextNode(char));
+            return (div);
+            }
+
+            function bang(N) {
+            var i, Z, A=0;
+            for (i=sparks*N; i<sparks*(N+1); i++) { 
+                if (decay[i]) {
+                Z=stars[i].style;
+                Xpos[i]+=dX[i];
+                Ypos[i]+=(dY[i]+=1.25/intensity[N]);
+                if (Xpos[i]>=swide || Xpos[i]<0 || Ypos[i]>=shigh+sdown || Ypos[i]<0) decay[i]=1;
+                else {
+                    Z.left=Xpos[i]+'px';
+                    Z.top=Ypos[i]+'px';
+                }
+                if (decay[i]==15) Z.fontSize='7px';
+                else if (decay[i]==7) Z.fontSize='2px';
+                else if (decay[i]==1) Z.visibility='hidden';
+                decay[i]--;
+                }
+                else A++;
+            }
+            if (A!=sparks) timers[N]=setTimeout('bang('+N+')', speed);
+            }
+
+            function eksplode(e) { 
+            var x, y, i, M, Z, N;
+            set_scroll();
+            y=(e)?e.pageY:event.y+sdown;
+            x=(e)?e.pageX:event.x+sleft;
+            N=++count%bangs;
+            M=Math.floor(Math.random()*3*colours.length);
+            intensity[N]=5+Math.random()*4;
+            for (i=N*sparks; i<(N+1)*sparks; i++) {
+                Xpos[i]=x;
+                Ypos[i]=y-5;
+                dY[i]=(Math.random()-0.5)*intensity[N];
+                dX[i]=(Math.random()-0.5)*(intensity[N]-Math.abs(dY[i]))*1.25;
+                decay[i]=16+Math.floor(Math.random()*16);
+                Z=stars[i].style;
+                if (M<colours.length) Z.color=colours[i%2?count%colours.length:M];
+                else if (M<2*colours.length) Z.color=colours[count%colours.length];
+                else Z.color=colours[i%colours.length];
+                Z.fontSize='13px';
+                Z.visibility='visible';
+            }
+            clearTimeout(timers[N]);
+            bang(N);
+            } 
+
+            function set_width() {
+            var sw_min=999999;
+            var sh_min=999999;
+            if (document.documentElement && document.documentElement.clientWidth) {
+                if (document.documentElement.clientWidth>0) sw_min=document.documentElement.clientWidth;
+                if (document.documentElement.clientHeight>0) sh_min=document.documentElement.clientHeight;
+            }
+            if (typeof(self.innerWidth)=='number' && self.innerWidth) {
+                if (self.innerWidth>0 && self.innerWidth<sw_min) sw_min=self.innerWidth;
+                if (self.innerHeight>0 && self.innerHeight<sh_min) sh_min=self.innerHeight;
+            }
+            if (document.body.clientWidth) {
+                if (document.body.clientWidth>0 && document.body.clientWidth<sw_min) sw_min=document.body.clientWidth;
+                if (document.body.clientHeight>0 && document.body.clientHeight<sh_min) sh_min=document.body.clientHeight;
+            }
+            if (sw_min==999999 || sh_min==999999) {
+                sw_min=800;
+                sh_min=600;
+            }
+            swide=sw_min-7;
+            shigh=sh_min-7;
+            }
+
+            function set_scroll() {
+            if (typeof(self.pageYOffset)=='number') {
+                sdown=self.pageYOffset;
+                sleft=self.pageXOffset;
+            }
+            else if (document.body && (document.body.scrollTop || document.body.scrollLeft)) {
+                sdown=document.body.scrollTop;
+                sleft=document.body.scrollLeft;
+            }
+            else if (document.documentElement && (document.documentElement.scrollTop || document.documentElement.scrollLeft)) {
+                sleft=document.documentElement.scrollLeft;
+                sdown=document.documentElement.scrollTop;
+            }
+            else {
+                sdown=0;
+                sleft=0;
+            }
+            }
+            // ]]>
+        </script>
+
+    </head>
+
+	<body>
+
+        
+<!--
+
+  【HTML】Balance by Cheeriko
+  
+  ---
+  
+  Important Links
+  
+    ❥ Terms of Use - https://toyhou.se/~world/139142.cheerikos-templates/page/84473.tos-faq
+    ❥ Help Desk - https://toyhou.se/~forums/44815.help-desk
+    ❥ Donate - https://ko-fi.com/cheeriko
+  
+  ---
+  
+  Info
+  
+    ❥ Avatar can be any size
+    ❥ Relationship avatars should be square
+    ❥ Some bootstrap grid knowledge might be needed to heavily edit
+  
+-->
+<div class="container p-4 bg-faded rounded mt-4">
+  <div class="row no-gutters">
+    
+  
+    <!-- 【 Avatar 】 
+    ---------------------------------------------------- -->
+    <div class="col-lg-4 p-2">
+      <div class="card border-0 d-block h-100" style="padding-top: 70%;
+        
+        
+        background-image: url(https://files.catbox.moe/912a9l.jpg);
+        background-position: center;
+        background-size: cover;
+        background-repeat: no-repeat;">
+        
+        
+      </div>
+    </div>
+    
+    
+  
+    <!-- 【 Profile 】 
+    ---------------------------------------------------- -->
+    <div class="col-lg-8 p-2">
+      <div class="card border-0 d-block p-4 h-100">
+        
+        <!-- Title -->
+        <div class="display-4 text-uppercase justify-content-between text-primary" style="font-size:22px;letter-spacing:1px;">
+					<span>Profile</span> <i class="fal fa-user my-auto"></i>
+				</div>
+				<hr>
+				
+				<!-- Content -->
+        <div class="row no-gutters m-n2">
+          
+          
+          <div class="col-md-6 justify-content-between p-2">
+            <span class="text-uppercase text-muted">Name</span>
+            <span>Lea Huynh</span>
+          </div>
+          
+          <div class="col-md-6 justify-content-between p-2">
+            <span class="text-uppercase text-muted">Age</span>
+            <span>18 years</span>
+          </div>
+          
+          <div class="col-md-6 justify-content-between p-2">
+            <span class="text-uppercase text-muted">Gender</span>
+            <span>Transmasc (He/Him)</span>
+          </div>
+          
+          <div class="col-md-6 justify-content-between p-2">
+            <span class="text-uppercase text-muted">Orientation</span>
+            <span>Arospec Bisexual</span>
+          </div>
+          
+          <div class="col-md-6 justify-content-between p-2">
+            <span class="text-uppercase text-muted">Height</span>
+            <span>167cm (5'6")</span>
+          </div>
+          
+          <div class="col-md-6 justify-content-between p-2">
+            <span class="text-uppercase text-muted">Voice</span>
+            <span>-</span>
+          </div>
+          
+          <div class="col-md-6 justify-content-between p-2">
+            <span class="text-uppercase text-muted">MBTI</span>
+            <span>-</span>
+          </div>
+          
+          <div class="col-md-6 justify-content-between p-2">
+            <span class="text-uppercase text-muted">Enneagram</span>
+            <span>SP 9w1 954</span>
+          </div>
+          
+          <div class="col-md-6 justify-content-between p-2">
+            <span class="text-uppercase text-muted">Designer</span>
+            <span>@asphodels</span>
+          </div>
+          
+          <div class="col-md-6 justify-content-between p-2">
+            <span class="text-uppercase text-muted">Created</span>
+            <span>25 Apr 2024</span>
+          </div>
+          
+          
+          
+          
+          <!-- Insert more items above this line -->
+        </div>
+      </div>
+    </div>
+    
+    
+  
+    <!-- 【 Design Notes 】 
+    ---------------------------------------------------- -->
+    <div class="col-lg-4 p-2">
+      <div class="card border-0 d-block p-4 h-100">
+        
+        <!-- Title -->
+        <div class="display-4 text-uppercase justify-content-between text-primary" style="font-size:22px;letter-spacing:1px;">
+					<span>Design Notes</span> <i class="fal fa-paintbrush my-auto"></i>
+				</div>
+				<hr>
+				
+				<!-- Content -->
+				<div class="text-muted" style="overflow-y:auto;max-height:225px;">
+          <ul class="m-0">
+            
+						<li>Layered hair</li>
+						<li>Downturned eyes</li>
+						<li>Mole below right eye</li>
+						<li>Snake bite piercings</li>
+						<li>Cigarette burn scars on forearms</li>
+						
+					</ul>
+				</div>
+      </div>
+    </div>
+    
+    
+  
+    <!-- 【 Personality 】 
+    ---------------------------------------------------- -->
+    <div class="col-lg-8 p-2">
+      <div class="card border-0 d-block p-4 h-100">
+        
+        <!-- Title -->
+        <div class="display-4 text-uppercase justify-content-between text-primary" style="font-size:22px;letter-spacing:1px;">
+					<span>Personality</span> <i class="fal fa-brain my-auto"></i>
+				</div>
+				<hr>
+				
+				<!-- Content -->
+				<div class="text-muted" style="overflow-y:auto;max-height:225px;">
+				  
+				  
+				  <p><b>Initially,</b> Lea comes off as incredibly relaxed, albeit a little unexpressive. Characterized by flat stares and a somewhat monotone voice, it's easy to see how some might come to know him to be strange and offputting. In spite of that, he's easy to get along with and unobtrusive. Want to go to a restaurant? He has no preferences; it's your choice. Want to hang out? Whatever you want to do is fine. When it comes to Lea, he's perfectly okay going along with other peoples' wishes. It wouldn't be surprising if you thought that he had no wishes of his own. He barely has any presence, and he seems to like it that way—he's just some guy.</p>
+				  
+				  <p>A lot of things seem to roll off his back, making him appear apathetic and unbothered. This can be frustrating for people who want to apply himself more, to take things more seriously—or for those who want to get under his skin.</p>
+				  
+				  <p><b>In reality,</b> he's surprisingly stubborn when it comes to certain things. Lea is one for taking the path of least resistance, and he's ironically quite resistant to change in this regard. He hates to rock the boat, and is very likely to stick to courses of action that are known even if they're detrimental. Combined with his tendency to clam up when it comes to his emotions or seeking help, this can leave him sitting in hot water.</p>
+				  
+				  <p>He has difficulty identifying his own emotions, or even what he wants in life. The fastest way to making him uncomfortable is to put him on the spot about his real desires or asking him about how he feels about something. It's as if he wants to be overlooked. It's rare for him to ever make demands or get angry, and he seems to be happy sticking to the sidelines and doing his own thing.</p>
+				  
+				  <p>At the core of Lea is a person who hates taking his own stances. He doesn't like to commit to things. Making personal choices is a source of anxiety for him, and he'd much rather let his mind go blank and go on autopilot rather than be a little too present. This is the reason why he'll apparently have no particularly strong opinion on many things, and why he's often so compliant with others. Getting his actual opinion might end up an endeavor similar to pulling teeth. Once you figure this out about him, it can become incredibly hard to trust whether his "yes" is a genuine one, or whether he's simply going on autopilot again. And his aversion to making personal choices can lead to procrastination so disastrous that he ends up letting situations deteriorate before anything is actually accomplished or solved.</p>
+				  
+				  <p><b>It isn't all bad, though.</b> He has an easy time relating to large swathes of people, and he's quite open-minded. This makes him someone that nearly anyone can talk to and confide in—he'll hear a lot of different people out, making him a great mediator and someone who can see a lot of different sides to an argument as opposed to being tunnel-visioned. He's someone capable of building bridges rather than burning them down, something valuable in environments that might be more volatile and polarized without him.
+</p>
+				  
+				</div>
+      </div>
+    </div>
+    
+    
+  
+    
+    
+    
+  
+    <!-- 【 History 】 
+    ---------------------------------------------------- -->
+    <div class="col-lg-8 p-2">
+      <div class="card border-0 d-block p-4 h-100">
+        
+        <!-- Title -->
+        <div class="display-4 text-uppercase justify-content-between text-primary" style="font-size:22px;letter-spacing:1px;">
+					<span>History</span> <i class="fal fa-book my-auto"></i>
+				</div>
+				<hr>
+				
+				<!-- Content -->
+				<div class="text-muted" style="overflow-y:auto;max-height:385px;">
+  				  
+  				  
+  			  <p>Lea doesn't remember the circumstances that brought him to the orphanage—he's been there for as long as he can recall. Perhaps something happened to his parents, or perhaps they left him there. Regardless, he can't find it in himself to care all that much. It must've happened when he was very, very young, though.</p>
+  			  
+  			  <p>His childhood at the orphanage was overall standard for those under Bailey's care. He was taken care of by caretakers while Bailey maintained a good distance from his wards. His physical needs were all taken care of in the youth ward.</p>
+  			  
+  			  <p>He did, however, struggle with consistent low moods to the point of being diagnosed with depression. On top of that he had few friends and felt strange and awkward with the other orphans. In fact, it wasn't until Robin came to the orphanage that he made a proper long-lasting friendship.</p>
+  			  
+  			  <p>It wasn't until a bit later in his teens that he discovered that he was actually a guy, and that one of the sources of his depression was gender dysphoria that he hadn't known how to name or identify. He was plagued with discontent about his body and identity, but hadn't known that it was anything that had a name. Once he came out, he began to socially and physically transition, and his struggles with depression began to abate.</p>
+  			  
+  			  <p>Lea was somewhat lucky in that he had very little presence and little to no social life to speak of. He didn't go to extracurriculars and had made no friends save for Robin, who accepted him for who he was. All he really did was show up to school after one particular summer with a different haircut and a different name, and things went smoothly enough. No one cared to remember his previous identity, after all. Schoolmates likely assumed that she'd moved, and fellow orphans were kept busy enough that they didn't have the time or mental capacity to care—especially when they turned 18.</p>
+  			  
+  			  <p>When the time came, Bailey held Lea's identification documents over his head and demanded payment weekly for both the costs of Lea's living over the years on top of the costs of his transition. While Lea made enough for the first payment with his current job, it's only a matter of time the steadily increasing demands will catch up to him...</p>
+					
+					
+				</div>
+      </div>
+    </div>
+    
+    
+    
+    <!-- 【 Preferences 】 
+    ---------------------------------------------------- -->
+    <div class="col-lg-4 row no-gutters">
+    
+    
+      <!-- 【 Likes 】 
+      -------------------------------------------------- -->
+      <div class="col-md-12 col-sm-6 p-2">
+        <div class="card border-0 d-block p-4 h-100">
+        
+          <!-- Title -->
+          <div class="display-4 text-uppercase justify-content-between text-primary" style="font-size:22px;letter-spacing:1px;">
+  					<span>Likes</span> <i class="fal fa-check my-auto"></i>
+  				</div>
+  				<hr>
+				
+				<!-- Content -->
+  				<div class="text-muted" style="overflow-y:auto;max-height:130px;">
+  				  <ul class="m-0">
+  				    
+  				    
+  						<li>Animal caretaking</li>
+  						<li><del>Dogs</del></li>
+  						<li>Graffiti art</li>
+  						<li>Lychee</li>
+  						<li>Mangos</li>
+  						<li>Milk</li>
+  						<li>Photography</li>
+  						<li>Skateboarding</li>
+  						
+  						
+  					</ul>
+  			  </div>
+        </div>
+      </div>
+    
+    
+      <!-- 【 Dislikes 】 
+      -------------------------------------------------- -->
+      <div class="col-md-12 col-sm-6 p-2">
+        <div class="card border-0 d-block p-4 h-100">
+        
+          <!-- Title -->
+          <div class="display-4 text-uppercase justify-content-between text-primary" style="font-size:22px;letter-spacing:1px;">
+  					<span>Dislikes</span> <i class="fal fa-x my-auto"></i>
+  				</div>
+  				<hr>
+				
+				<!-- Content -->
+  				<div class="text-muted" style="overflow-y:auto;max-height:130px;">
+  				  <ul class="m-0">
+  				    
+  				    
+  						<li>Dogs</li>
+  						<li>School</li>
+  						<li>Spicy food</li>
+  						
+  						
+  					</ul>
+  			  </div>
+        </div>
+      </div>  
+    </div>
+    
+    
+    <!-- 【 Relationships 】 
+    ---------------------------------------------------- -->
+    <div class="col-12 p-2">
+      <div class="card border-0 d-block p-4 h-100">
+        
+        <!-- Title -->
+          <div class="display-4 text-uppercase justify-content-between text-primary" style="font-size:22px;letter-spacing:1px;">
+  					<span>Relationships</span> <i class="fal fa-heart my-auto"></i>
+  				</div>
+  				<hr>
+        
+        <!-- Title -->
+        <div class="container p-0">
+  <div class="row no-gutters m-n2" style="font-size:12px;">
+    
+    
+      
+    <!-- 【 Card 】 
+    ------------------------------------------------------ -->
+    <div class="col-xl-4 col-sm-6 p-2">
+      <div class="card flex-lg-row bg-faded p-1" style="border-radius:.75rem;">
+        <div class="col-auto p-2" style="position:relative;">
+          
+          
+          <!-- 【 Avatar 】 
+          ------------------------------------------------ -->
+          <div class="bg-primary h-100 w-100" style="min-width:125px;min-height:125px;position:relative;border-radius:.65rem;
+            
+            background: url(IMG);
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;">
+        
+          
+          <!-- 【 Relationship Gauge 】 
+          ------------------------------------------------ -->
+          <div class="text-center" style="color:#ff7963;font-size:16px;position:absolute;bottom:4px;right:0;left:0;">
+            <i class="far fa-heart"></i>
+            <i class="far fa-heart"></i>
+            <i class="far fa-heart"></i>
+            <i class="far fa-heart"></i>
+            <i class="far fa-heart"></i>
+          </div>
+          </div>
+  
+        </div>
+        
+        
+        <!-- 【 Info 】 
+        ------------------------------------------------ -->
+        <div class="col flex-column p-2">
+        
+          <!-- 【 Name 】 -->
+          <div class="text-uppercase text-truncate">
+            
+            <a href="">Bailey</a>
+            
+          </div>
+        
+          <!-- 【 About 】 -->
+          <div class="card rounded-0 my-1 p-2 bg-faded flex-fill" style="height:100px;overflow:auto;border-width:1px 0;">
+  
+            <p>The caretaker of the orphanage.</p>
+            
+            <p>Lea's opinion of Bailey has soured greatly ever since he started extorting him for money.</p>
+  
+          </div>
+        
+          <!-- 【 Relationship 】 -->
+          <div class="text-muted text-right small" style="letter-spacing:1px;">
+            
+            <i>Caretaker</i>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- 【 Card End 】 -->
+    
+    <!-- 【 Card 】 
+    ------------------------------------------------------ -->
+    <div class="col-xl-4 col-sm-6 p-2">
+      <div class="card flex-lg-row bg-faded p-1" style="border-radius:.75rem;">
+        <div class="col-auto p-2" style="position:relative;">
+          
+          
+          <!-- 【 Avatar 】 
+          ------------------------------------------------ -->
+          <div class="bg-primary h-100 w-100" style="min-width:125px;min-height:125px;position:relative;border-radius:.65rem;
+            
+            background: url(IMG);
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;">
+        
+          
+          <!-- 【 Relationship Gauge 】 
+          ------------------------------------------------ -->
+          <div class="text-center" style="color:#ff7963;font-size:16px;position:absolute;bottom:4px;right:0;left:0;">
+            <i class="fas fa-heart"></i>
+            <i class="fas fa-heart"></i>
+            <i class="fas fa-heart"></i>
+            <i class="far fa-heart"></i>
+            <i class="far fa-heart"></i>
+          </div>
+          </div>
+  
+        </div>
+        
+        
+        <!-- 【 Info 】 
+        ------------------------------------------------ -->
+        <div class="col flex-column p-2">
+        
+          <!-- 【 Name 】 -->
+          <div class="text-uppercase text-truncate">
+            
+            <a href="">Robin</a>
+            
+          </div>
+        
+          <!-- 【 About 】 -->
+          <div class="card rounded-0 my-1 p-2 bg-faded flex-fill" style="height:100px;overflow:auto;border-width:1px 0;">
+  
+            <p>Lea's old childhood friend. They're not as close as they were when they were children, especially with Bailey keeping them both busy, but Lea still cares for her.</p>
+            
+            <p>It's a shame there isn't much he can do to help.</p>
+  
+          </div>
+        
+          <!-- 【 Relationship 】 -->
+          <div class="text-muted text-right small" style="letter-spacing:1px;">
+            
+            <i>Childhood Friend</i>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- 【 Card End 】 -->
+    
+    <!-- 【 Card 】 
+    ------------------------------------------------------ -->
+    <div class="col-xl-4 col-sm-6 p-2">
+      <div class="card flex-lg-row bg-faded p-1" style="border-radius:.75rem;">
+        <div class="col-auto p-2" style="position:relative;">
+          
+          
+          <!-- 【 Avatar 】 
+          ------------------------------------------------ -->
+          <div class="bg-primary h-100 w-100" style="min-width:125px;min-height:125px;position:relative;border-radius:.65rem;
+            
+            background: url(IMG);
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;">
+        
+          
+          <!-- 【 Relationship Gauge 】 
+          ------------------------------------------------ -->
+          <div class="text-center" style="color:#ff7963;font-size:16px;position:absolute;bottom:4px;right:0;left:0;">
+            <i class="fas fa-heart"></i>
+            <i class="fas fa-heart"></i>
+            <i class="fas fa-heart"></i>
+            <i class="far fa-heart"></i>
+            <i class="far fa-heart"></i>
+          </div>
+          </div>
+  
+        </div>
+        
+        
+        <!-- 【 Info 】 
+        ------------------------------------------------ -->
+        <div class="col flex-column p-2">
+        
+          <!-- 【 Name 】 -->
+          <div class="text-uppercase text-truncate">
+            
+            <a href="">Whitney</a>
+            
+          </div>
+        
+          <!-- 【 About 】 -->
+          <div class="card rounded-0 my-1 p-2 bg-faded flex-fill" style="height:100px;overflow:auto;border-width:1px 0;">
+  
+            <p>Lea's ex(?)-bully and current friend(?) with benefits. They should probably talk about it, but emotions are the bane of both of them.</p>
+  
+          </div>
+        
+          <!-- 【 Relationship 】 -->
+          <div class="text-muted text-right small" style="letter-spacing:1px;">
+            
+            <i>FWB</i>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- 【 Card End 】 -->
+    <!-- 【 Card 】 
+    ------------------------------------------------------ -->
+    <div class="col-xl-4 col-sm-6 p-2">
+      <div class="card flex-lg-row bg-faded p-1" style="border-radius:.75rem;">
+        <div class="col-auto p-2" style="position:relative;">
+          
+          
+          <!-- 【 Avatar 】 
+          ------------------------------------------------ -->
+          <div class="bg-primary h-100 w-100" style="min-width:125px;min-height:125px;position:relative;border-radius:.65rem;
+            
+            background: url(IMG);
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;">
+        
+          
+          <!-- 【 Relationship Gauge 】 
+          ------------------------------------------------ -->
+          <div class="text-center" style="color:#ff7963;font-size:16px;position:absolute;bottom:4px;right:0;left:0;">
+            <i class="fas fa-heart"></i>
+            <i class="fas fa-heart"></i>
+            <i class="fas fa-heart"></i>
+            <i class="far fa-heart"></i>
+            <i class="far fa-heart"></i>
+          </div>
+          </div>
+  
+        </div>
+        
+        
+        <!-- 【 Info 】 
+        ------------------------------------------------ -->
+        <div class="col flex-column p-2">
+        
+          <!-- 【 Name 】 -->
+          <div class="text-uppercase text-truncate">
+            
+            <a href="">Kylar</a>
+            
+          </div>
+        
+          <!-- 【 About 】 -->
+          <div class="card rounded-0 my-1 p-2 bg-faded flex-fill" style="height:100px;overflow:auto;border-width:1px 0;">
+  
+            <p>Lea's friend who he messes around with sometimes. Kylar has an unrequited crush on him (and sometimes stalks him).</p>
+            
+            <p>...Not that Lea really helps matters.</p>
+  
+          </div>
+        
+          <!-- 【 Relationship 】 -->
+          <div class="text-muted text-right small" style="letter-spacing:1px;">
+            
+            <i>FWB / Stalker?</i>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- 【 Card End 】 -->
+    
+    <!-- 【 Card 】 
+    ------------------------------------------------------ -->
+    <div class="col-xl-4 col-sm-6 p-2">
+      <div class="card flex-lg-row bg-faded p-1" style="border-radius:.75rem;">
+        <div class="col-auto p-2" style="position:relative;">
+          
+          
+          <!-- 【 Avatar 】 
+          ------------------------------------------------ -->
+          <div class="bg-primary h-100 w-100" style="min-width:125px;min-height:125px;position:relative;border-radius:.65rem;
+            
+            background: url(IMG);
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;">
+        
+          
+          <!-- 【 Relationship Gauge 】 
+          ------------------------------------------------ -->
+          <div class="text-center" style="color:#ff7963;font-size:16px;position:absolute;bottom:4px;right:0;left:0;">
+            <i class="far fa-heart"></i>
+            <i class="far fa-heart"></i>
+            <i class="far fa-heart"></i>
+            <i class="far fa-heart"></i>
+            <i class="far fa-heart"></i>
+          </div>
+          </div>
+  
+        </div>
+        
+        
+        <!-- 【 Info 】 
+        ------------------------------------------------ -->
+        <div class="col flex-column p-2">
+        
+          <!-- 【 Name 】 -->
+          <div class="text-uppercase text-truncate">
+            
+            <a href="">Leighton</a>
+            
+          </div>
+        
+          <!-- 【 About 】 -->
+          <div class="card rounded-0 my-1 p-2 bg-faded flex-fill" style="height:100px;overflow:auto;border-width:1px 0;">
+  
+            <p>The headteacher at Lea's school. Lea doesn't dislike a lot of people, but Leighton has more than earned it.</p>
+  
+          </div>
+        
+          <!-- 【 Relationship 】 -->
+          <div class="text-muted text-right small" style="letter-spacing:1px;">
+            
+            <i>Headteacher</i>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- 【 Card End 】 -->
+    
+				  </div>
+				</div>
+      </div>
+    </div>
+    
+    
+    <!-- 【 Trivia 】 
+    ---------------------------------------------------- -->
+    <div class="col-12 p-2">
+      <div class="card border-0 d-block p-4 h-100">
+        
+        <!-- Title -->
+        <div class="display-4 text-uppercase justify-content-between text-primary" style="font-size:22px;letter-spacing:1px;">
+					<span>Trivia</span> <i class="fal fa-question-circle my-auto"></i>
+				</div>
+				<hr>
+				
+				<!-- Content -->
+				<div class="text-muted" style="overflow-y:auto;max-height:250px;">
+				    
+				    <ul class="m-0">
+
+					    <li>Lea has an undiagnosed sleep disorder that causes his daytime drowsiness and frequent napping.</li>
+					    <li>He usually sits at the front of the class to try to keep himself awake and to pay attention better, but when he gets stressed and needs a break he starts to migrate towards the back of the class.</li>
+						    
+				    </ul>
+				</div>
+      </div>
+    </div>
+    
+  
+    <!-- 【 TV Tropes 】 
+    ---------------------------------------------------- -->
+    <div class="col-12 p-2">
+      <div class="card border-0 d-block p-4 h-100">
+        
+        <!-- Title -->
+        <div class="display-4 text-uppercase justify-content-between text-primary" style="font-size:22px;letter-spacing:1px;">
+					<span>TV Tropes</span> <i class="fal fa-tv-retro my-auto"></i>
+				</div>
+				<hr>
+				
+				<!-- Content -->
+				<div class="text-muted" style="overflow-y:auto;max-height:250px;">
+				    
+				  <ul class="m-0">
+				      
+						<li><a href="https://tvtropes.org/pmwiki/pmwiki.php/Main/ChildhoodFriends">Childhood Friends</a>: Robin and Lea were close as children, though they've since grown apart.</li>
+						
+						<li><a href="https://tvtropes.org/pmwiki/pmwiki.php/Main/HorribleJudgeOfCharacter">Horrible Judge of Character</a>: Subverted. Deep down, Lea knows that Whitney isn't the best person, but he has hopes for him anyway.</li>
+						
+						<li><a href="https://tvtropes.org/pmwiki/pmwiki.php/Main/NoSocialSkills">No Social Skills</a>: Lea is a rather awkward person and doesn't really know how to navigate social situations, so he tends to avoid them.</li>
+						
+						<li><a href="https://tvtropes.org/pmwiki/pmwiki.php/Main/ReallyFondOfSleeping">Really Fond of Sleeping</a>: Lea takes frequent naps (often <a href="https://tvtropes.org/pmwiki/pmwiki.php/Main/AsleepInClass">in class</a>). Once, he even fell asleep <a href="https://tvtropes.org/pmwiki/pmwiki.php/Main/AnOddPlaceToSleep">inside of a locker</a> after Whitney locked him in.</li>
+						
+						<li><a href="https://tvtropes.org/pmwiki/pmwiki.php/Main/TaremeEyes">Tareme Eyes</a>: The corners of his eyes are downturned.</li>
+						
+						<li><a href="https://tvtropes.org/pmwiki/pmwiki.php/Main/TheQuietOne">The Quiet One</a>: Lea is significantly more introverted and quiet compared to the rest of Whitney's gang, making him a strange outlier.</li>
+						
+						<li><a href="https://tvtropes.org/pmwiki/pmwiki.php/Main/TheStoic">The Stoic</a>: He's not a very expressive person, wearing a flat expression the majority of the time.</li>
+						
+						<li><a href="https://tvtropes.org/pmwiki/pmwiki.php/Main/TheStoner">The Stoner</a>: Downplayed. Lea smokes weed more frequently as his stress ramps up, often showing up to school high or getting high while he's supposed to be in class.</li>
+						
+						<li><a href="https://tvtropes.org/pmwiki/pmwiki.php/Main/TraumaCongaLine">Trauma Conga Line</a>: Lea gets put through the wringer due to the nature of the town that he lives in and its people. It gets worse once Leighton gets involved.</li>
+						
+						<li><a href="https://tvtropes.org/pmwiki/pmwiki.php/Main/WeakWilled">Weak-Willed</a>: He's highly suggestible, making him vulnerable to things like hypnosis.</li>
+						
+					</ul>
+				</div>
+      </div>
+    </div>
+    
+    
+    
+  </div>
+</div>
+<!-- 【 Credit | Do Not Remove 】 
+---------------------------------------------------- -->
+<div class="container faded p-1 text-left" style="font-size:12px;">
+  <a target="_blank" class="text-muted tooltipster" title="Template by Cheeriko" href="https://toyhou.se/2213905"><i class="fal fa-code"></i></a>
+</div>
+
+<!-- Pagedoll -->
+<img src="https://f2.toyhou.se/file/f2-toyhou-se/images/104286728_fLYvv0923yfRy0d.png?1753613609"
+style="max-height: 200px; position: fixed; right: 10px; bottom: 10px; z-index: 100;"
+title="Art by magaridilatte"
+class="tooltipster hidden-sm-down">
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+    </body>

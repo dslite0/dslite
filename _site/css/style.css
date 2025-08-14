@@ -95,8 +95,8 @@ body {
     height: 50px;
 }
 
-.container > div.main > div {
-    padding: 5px;
+div.subdiv {
+    padding: 10px;
     background-color: #fdf2cb;
     border: 1px solid #e6b147;
 }
@@ -284,16 +284,21 @@ body {
     margin: 0 1em 0.5em 1em;
 }
 
+
 /* TEXT FORMATTING */
+
+::selection {
+    background: #76573d;
+    color: #fffefb;
+;
+}
+
+p {
+    line-height: 150%;
+}
 
 a {
     color: #ff8282;
-}
-
-::selection {
-    background: #8f6f55;
-    color: #fffefb;
-;
 }
 
 a:hover {
