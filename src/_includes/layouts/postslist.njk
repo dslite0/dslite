@@ -1,0 +1,19 @@
+<ul class="postlist">
+{%- for post in postslist | reverse %}
+	<li>
+		
+		<time class="postlist-date" datetime="{{ post.date | formatDate }}">{{ post.date | formatDate2 }}</time>
+		
+		>>
+
+		<a href="{{ post.url }}" class="postlist-link">
+			{% if post.data.title %}{{ post.data.title }}
+			{% else %}<code>{{ post.url }}</code>
+			{% endif %}
+		</a>
+
+		
+		
+	</li>
+{%- endfor %}
+</ul>
