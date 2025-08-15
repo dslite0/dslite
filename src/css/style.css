@@ -10,8 +10,8 @@
 
 body {
     color: #896446;
-    font-family: 'Onli';
-    background-image: url('https://files.catbox.moe/ndg0lc.png');
+    font-family: 'MS PGothic';
+    background-image: url('/assets/images/backgrounds/toroinoue-background.png');
     background-color:#ffffff;
     display: flex;
     min-height: 100dvh;
