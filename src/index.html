@@ -1,0 +1,48 @@
+---
+layout: layouts/base.html
+title: "strife"
+---
+
+<h1>
+    <img src="https://nukochannel.neocities.org/NukoImg/Activities/Daily%20life/nukoBroom2.gif" title="nukoBroom2" class="emote">
+    welcome to my site
+    <img src="https://nukochannel.neocities.org/NukoImg/Activities/Daily%20life/nukoCarryBox.gif" title="nukoCarryBox" class="emote">
+</h1>
+
+<img src="/button.png" class="center">
+<div align="center"><textarea readonly>
+    <a href="strife.nekoweb.org" target="_blank"><img src="https://strife.nekoweb.org/button.png" alt="strife.nekoweb.org button"></a>
+</textarea></div>
+
+<p align="center">this site is a place for me to express myself as well as a creative outlet <img src="https://nukochannel.neocities.org/NukoImg/Activities/Hobbies/nukoBrowsing.gif" title="nukoBrowsing" class="emote"> while things are always gonna be under construction, feel free to take a look around</p>
+
+<p align="center">i'll be blogging and making pages centered around my interests and hobbies, and really whatever comes to mind that i feel like adding <img src="https://nukochannel.neocities.org/NukoImg/Reactions/Happy/nukoJoy.gif" title="nukoJoy" class="emote"></p>
+
+<p align="center">sign my <a href="https://strife.atabook.org/" target="_blank">guestbook</a> while you're here</p>
+
+<div id="statuscafe">
+    <div id="statuscafe-username" align="center"></div>
+    <div id="statuscafe-content" align="center"></div>
+</div>
+<script src="https://status.cafe/current-status.js?name=dslite" defer></script>
+
+<br>
+
+<div class="subdiv" style="padding-top: 10px;">
+    <p align="center"><b>hyperfixation:</b> n/a</p>
+    <img src="/assets/images/graphics/cloud-chocobo.png" width="250" class="center">
+    <br>
+</div>
+
+{% set postsCount = collections.posts | length %}
+{% set latestPostsCount = postsCount | min(5) %}
+<h2>recent posts</h2>
+
+{% set postslist = collections.posts %}
+{% set postslistCounter = postsCount %}
+{% include "layouts/postslist.njk" %}
+
+{% set morePosts = postsCount - 5 %}
+{% if morePosts > 0 %}
+<p>{{ morePosts }} more post{% if morePosts != 1 %}s{% endif %} can be found in <a href="/blog">the archive</a>.</p>
+{% endif %}
