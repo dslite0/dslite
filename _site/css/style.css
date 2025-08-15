@@ -308,18 +308,6 @@ div.subdiv {
     left: -2em;
 }
 
-/* CLASSES */
-
-.center {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.thumbnail:hover {
-    transform: scale(1.10);
-}
-
 /* STATUS CAFE */
 
 #statuscafe {
@@ -405,3 +393,14 @@ ul.indent {
     padding: 0px;
 }
 
+/* MISC */
+
+.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.thumbnail:hover {
+    transform: scale(1.10);
+}
