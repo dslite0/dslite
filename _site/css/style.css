@@ -222,6 +222,7 @@ div.subdiv {
     width: max-content;
     display: flex;
     align-items: center;
+    margin-left: 10px;
     gap: 10px;
     text-align: center;
     -moz-transform: translateX(100%);
