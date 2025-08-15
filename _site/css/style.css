@@ -220,9 +220,6 @@ div.subdiv {
     white-space: nowrap;
     height: 100%;
     width: max-content;
-    margin-top: 0;
-    margin-bottom:0;
-    margin-left: 10px;
     display: flex;
     align-items: center;
     gap: 10px;
@@ -338,8 +335,36 @@ div.subdiv {
     margin: 0 1em 0.5em 1em;
 }
 
+/* BLOG POSTS */
+
+.postlist {
+    list-style: none;
+    padding-left: 10px;
+}
+
+ul.taglist {
+    display: inline;
+    list-style: none;
+    padding: 0px;
+}
+
+ul.taglist li {
+  display: inline;
+}
+
+ul.taglist li:after {
+  content: " ";
+}
+
+ul.taglist li:last-child:after {
+    content: "";
+}
 
 /* TEXT FORMATTING */
+
+.emote {
+    height: 22px;
+}
 
 ::selection {
     color: #fffefb;
@@ -375,25 +400,3 @@ ul.indent {
     padding: 0px;
 }
 
-ul.taglist {
-    display: inline;
-    list-style: none;
-    padding: 0px;
-}
-
-ul.taglist li {
-  display: inline;
-}
-
-ul.taglist li:after {
-  content: " ";
-}
-
-ul.taglist li:last-child:after {
-    content: "";
-}
-
-.postlist {
-    list-style: none;
-    padding-left: 10px;
-}
