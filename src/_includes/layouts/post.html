@@ -1,0 +1,18 @@
+{% extends "layouts/base.html" %}
+
+{% block content %}
+
+    <h1>{{ title }}</h1>
+    <b>date:</b> {{ page.date | formatDate}}<br>
+    <b>tags:</b>
+    <ul class="taglist">
+        {% for tag in tags %}
+        <li>
+            <a href="/blog/tag/{{ tag | slugify }}">#{{tag}}</a>
+        </li>
+        {% endfor %}
+    </ul>
+
+    {{ content | safe }}
+
+{% endblock %}

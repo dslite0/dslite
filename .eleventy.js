@@ -6,12 +6,13 @@ const TIME_ZONE = "America/New_York";
 module.exports = function(eleventyConfig) {
     eleventyConfig.addPassthroughCopy("src/css/");
     eleventyConfig.addPassthroughCopy("src/assets/");
+    eleventyConfig.addPassthroughCopy("src/**/*.css");
 
     eleventyConfig.addWatchTarget("src/css/");
     eleventyConfig.addWatchTarget("src/assets/");
 
     eleventyConfig.addCollection('posts', function(collectionApi) {
-        return collectionApi.getFilteredByGlob('src/blog/**/*.html');
+        return collectionApi.getFilteredByGlob([ 'src/blog/**/*.html', 'src/blog/**/*.md' ]);
     })
 
     eleventyConfig.addCollection('ocs', function(collectionApi) {
@@ -35,6 +36,27 @@ module.exports = function(eleventyConfig) {
     dateObj = new Date(dateString);
     return DateTime.fromJSDate(dateObj).toFormat('yyyy/MM/dd | hh:mm a');
     });
+
+    eleventyConfig.addFilter("formatDate2", (dateString) => {
+    dateObj = new Date(dateString);
+    return DateTime.fromJSDate(dateObj).toFormat('yyyy/MM/dd');
+    });
+
+    eleventyConfig.addFilter("head", (array, n) => {
+		if(!Array.isArray(array) || array.length === 0) {
+			return [];
+		}
+		if( n < 0 ) {
+			return array.slice(n);
+		}
+
+		return array.slice(0, n);
+	});
+
+	// Return the smallest number argument
+	eleventyConfig.addFilter("min", (...numbers) => {
+		return Math.min.apply(null, numbers);
+	});
 
     return {
         dir: {
