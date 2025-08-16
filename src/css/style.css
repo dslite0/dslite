@@ -382,6 +382,21 @@ ul.taglist li:last-child:after {
     content: "";
 }
 
+/* SITE BUTTONS */
+
+#site-button-box {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+a .site-button:hover {
+    transform: translateY(-2px);
+    filter: drop-shadow(4px 4px 0px #e9c177);
+    cursor: pointer;
+}
+
+
 /* TEXT FORMATTING */
 
 .emote {
