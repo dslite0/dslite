@@ -6,8 +6,9 @@ const TIME_ZONE = "America/New_York";
 module.exports = function(eleventyConfig) {
     eleventyConfig.addPassthroughCopy("src/css/");
     eleventyConfig.addPassthroughCopy("src/assets/");
+    eleventyConfig.addPassthroughCopy("src/**/*.png");
     eleventyConfig.addPassthroughCopy("src/**/*.css");
-
+    
     eleventyConfig.addWatchTarget("src/css/");
     eleventyConfig.addWatchTarget("src/assets/");
 

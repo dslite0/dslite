@@ -1,0 +1,20 @@
+#tablist {
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 20px;
+    background-color: #fdf2cb;
+    border: 1px solid #e6b147;
+}
+
+#site-button-box {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+a .site-button:hover {
+    transform: translateY(-2px);
+    filter: drop-shadow(4px 4px 0px #e9c177);
+    cursor: pointer;
+}

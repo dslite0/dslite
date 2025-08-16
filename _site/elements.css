@@ -8,6 +8,10 @@
   font-size: 12px;
 }
 
+.site-box:hover {
+  transform: scale(1.05);
+}
+
 /* box the screenshot resides in */
 .site-box .site-feature {
   
@@ -17,6 +21,10 @@
 .site-box .screenshot {
   border-style: solid;
   border-color: #fccc6e;
+}
+
+.site-box .screenshot:hover {
+  display: none;
 }
 
 /* site url */
@@ -29,7 +37,6 @@
 /* subheader */
 .site-box > a > span {
   display: none;
-  color: var(--darkbrown);
 }
 
 /* Style for your 'Follow on Nekoweb' button (<iframe src="https://nekoweb.org/frame/follow" frameborder="0" width="170" height="28"></iframe>) */
