@@ -1,0 +1,17 @@
+ul.taglist {
+    display: inline;
+    list-style: none;
+    padding: 0px;
+}
+
+ul.taglist li {
+  display: inline;
+}
+
+ul.taglist li:after {
+  content: " ";
+}
+
+ul.taglist li:last-child:after {
+    content: "";
+}

@@ -1,0 +1,648 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+        <meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>fic recs</title>
+
+<!-- EMBED -->
+<meta content="STRIFE!" property="og:title" />
+<meta content="my corner of the web" property="og:description" />
+<meta content="https://strife.nekoweb.org" property="og:url" />
+<meta content="/assets/images/graphics/cloud-chocobo.png" property="og:image" />
+<meta content="#ffe195" data-react-helmet="true" name="theme-color" />
+<meta name="twitter:card" content="summary_large_image">
+
+<!-- CSS -->
+<link rel="stylesheet" href="/css/style.css" />
+
+<!-- CLICKSPLOSION SCRIPT -->
+<script type="text/javascript">
+    // <![CDATA[
+    var sparks=75; // how many sparks per clicksplosion
+    var speed=33; // how fast - smaller is faster
+    var bangs=5; // how many can be launched simultaneously (note that using too many can slow the script down)
+    var colours=new Array('#03f', '#f03', '#0e0', '#93f', '#0cf', '#f93', '#f0c'); 
+    //                     blue    red     green   purple  cyan    orange  pink
+
+    /****************************
+    *   Clicksplosion Effect    *
+    *(c)2012-3 mf2fm web-design *
+    *  http://www.mf2fm.com/rv  *
+    * DON'T EDIT BELOW THIS BOX *
+    ****************************/
+    var intensity=new Array();
+    var Xpos=new Array();
+    var Ypos=new Array();
+    var dX=new Array();
+    var dY=new Array();
+    var stars=new Array();
+    var decay=new Array();
+    var timers=new Array();
+    var swide=800;
+    var shigh=600;
+    var sleft=sdown=0;
+    var count=0;
+
+    function addLoadEvent(funky) {
+    var oldonload=window.onload;
+    if (typeof(oldonload)!='function') window.onload=funky;
+    else window.onload=function() {
+        if (oldonload) oldonload();
+        funky();
+    }
+    }
+
+    addLoadEvent(clicksplode);
+
+    function clicksplode() { if (document.getElementById) {
+    var i, j;
+    window.onscroll=set_scroll;
+    window.onresize=set_width;
+    document.onclick=eksplode;
+    set_width();
+    set_scroll();
+    for (i=0; i<bangs; i++) for (j=sparks*i; j<sparks+sparks*i; j++) {
+        stars[j]=createDiv('*', 13);
+        document.body.appendChild(stars[j]);
+    }
+    }}
+
+    function createDiv(char, size) {
+    var div, sty;
+    div=document.createElement('div');
+    sty=div.style;
+    sty.font=size+'px monospace';
+    sty.position='absolute';
+    sty.backgroundColor='transparent';
+    sty.visibility='hidden';
+    sty.zIndex='101';
+    div.appendChild(document.createTextNode(char));
+    return (div);
+    }
+
+    function bang(N) {
+    var i, Z, A=0;
+    for (i=sparks*N; i<sparks*(N+1); i++) { 
+        if (decay[i]) {
+        Z=stars[i].style;
+        Xpos[i]+=dX[i];
+        Ypos[i]+=(dY[i]+=1.25/intensity[N]);
+        if (Xpos[i]>=swide || Xpos[i]<0 || Ypos[i]>=shigh+sdown || Ypos[i]<0) decay[i]=1;
+        else {
+            Z.left=Xpos[i]+'px';
+            Z.top=Ypos[i]+'px';
+        }
+        if (decay[i]==15) Z.fontSize='7px';
+        else if (decay[i]==7) Z.fontSize='2px';
+        else if (decay[i]==1) Z.visibility='hidden';
+        decay[i]--;
+        }
+        else A++;
+    }
+    if (A!=sparks) timers[N]=setTimeout('bang('+N+')', speed);
+    }
+
+    function eksplode(e) { 
+    var x, y, i, M, Z, N;
+    set_scroll();
+    y=(e)?e.pageY:event.y+sdown;
+    x=(e)?e.pageX:event.x+sleft;
+    N=++count%bangs;
+    M=Math.floor(Math.random()*3*colours.length);
+    intensity[N]=5+Math.random()*4;
+    for (i=N*sparks; i<(N+1)*sparks; i++) {
+        Xpos[i]=x;
+        Ypos[i]=y-5;
+        dY[i]=(Math.random()-0.5)*intensity[N];
+        dX[i]=(Math.random()-0.5)*(intensity[N]-Math.abs(dY[i]))*1.25;
+        decay[i]=16+Math.floor(Math.random()*16);
+        Z=stars[i].style;
+        if (M<colours.length) Z.color=colours[i%2?count%colours.length:M];
+        else if (M<2*colours.length) Z.color=colours[count%colours.length];
+        else Z.color=colours[i%colours.length];
+        Z.fontSize='13px';
+        Z.visibility='visible';
+    }
+    clearTimeout(timers[N]);
+    bang(N);
+    } 
+
+    function set_width() {
+    var sw_min=999999;
+    var sh_min=999999;
+    if (document.documentElement && document.documentElement.clientWidth) {
+        if (document.documentElement.clientWidth>0) sw_min=document.documentElement.clientWidth;
+        if (document.documentElement.clientHeight>0) sh_min=document.documentElement.clientHeight;
+    }
+    if (typeof(self.innerWidth)=='number' && self.innerWidth) {
+        if (self.innerWidth>0 && self.innerWidth<sw_min) sw_min=self.innerWidth;
+        if (self.innerHeight>0 && self.innerHeight<sh_min) sh_min=self.innerHeight;
+    }
+    if (document.body.clientWidth) {
+        if (document.body.clientWidth>0 && document.body.clientWidth<sw_min) sw_min=document.body.clientWidth;
+        if (document.body.clientHeight>0 && document.body.clientHeight<sh_min) sh_min=document.body.clientHeight;
+    }
+    if (sw_min==999999 || sh_min==999999) {
+        sw_min=800;
+        sh_min=600;
+    }
+    swide=sw_min-7;
+    shigh=sh_min-7;
+    }
+
+    function set_scroll() {
+    if (typeof(self.pageYOffset)=='number') {
+        sdown=self.pageYOffset;
+        sleft=self.pageXOffset;
+    }
+    else if (document.body && (document.body.scrollTop || document.body.scrollLeft)) {
+        sdown=document.body.scrollTop;
+        sleft=document.body.scrollLeft;
+    }
+    else if (document.documentElement && (document.documentElement.scrollTop || document.documentElement.scrollLeft)) {
+        sleft=document.documentElement.scrollLeft;
+        sdown=document.documentElement.scrollTop;
+    }
+    else {
+        sdown=0;
+        sleft=0;
+    }
+    }
+    // ]]>
+</script>
+        
+            
+        
+    </head>
+
+	<body>
+
+        <div class="container">
+
+            <div class="header">
+
+    <div class="sticker-container">
+        <img class="sticker" src="/assets/images/graphics/catFish.png">
+        <img class="sticker" src="/assets/images/graphics/bearCake.png">
+    </div>
+
+    <nav id="imglinks" class="flex">
+
+        <a href="/index.html" class="imgtxt">
+            <img src="/assets/images/graphics/toaster.png" alt="" width="100">
+            <span>home</span>
+        </a>
+
+        <a href="/about" class="imgtxt">
+            <img src="/assets/images/graphics/flowercat.png" alt="" height="110">
+            <span>about</span>
+        </a>
+
+        <a href="/blog" class="imgtxt">
+            <img src="/assets/images/graphics/paper2.png" alt="" height="110">
+            <span>blog</span>
+        </a>
+
+        <a href="/resources" class="imgtxt">
+            <img src="/assets/images/graphics/bookstack.png" alt="" height="100">
+            <span>resources</span>
+        </a>
+
+        <a href="/links" class="imgtxt">
+            <img src="/assets/images/graphics/chicks.png" alt="" height="100" style="padding-left:5px;">
+            <span>links</span>
+        </a>
+	
+    </nav>
+
+</div>
+
+            <!-- NAVIGATION BAR -->
+            <div class="navbar">
+
+    <div class="navbar-header-top">general</div>
+    <ul>
+        <li><a href="/enneagram">enneagram</a></li>
+        <li><a href="/mycology">mycology</a></li>
+        <li><a href="/obsidian">obsidian</a></li>
+    </ul>
+    <div class="navbar-header-middle">media</div>
+    <ul>
+        <li>nothing here yet!</li>
+    </ul>
+    <div class="navbar-header-middle">misc</div>
+    <ul>
+        <li><a href="/fic-recs">fic recs</a></li>
+    </ul>
+</div>
+
+            <div class="content">
+                <main>
+                    <!-- CONTENT -->
+                    
+                    
+                        
+<h1>fic recs</h1>
+
+<p>i used to (and from time to time still) read a lot of fanfiction, often for whatever media i'm hyperfixated on at the moment. as a result i have lots to recommend! i really love fanfiction authors and all that they have to offer. if you decide to read any of the fics i recommend, please consider dropping the authors a comment to show your appreciation once you're done!</p>
+
+<p>explicit/nsfw fics are marked with 🔞. hopefully i've gotten all of them.</p>
+
+<h2>table of contents</h2>
+
+<ol type="i">
+    <li><a href="#ff7">final fantasy 7</a></li>
+    <li><a href="#fe3h">fire emblem: three houses</a></li>
+    <li><a href="#homestuck">homestuck</a></li>
+    <li><a href="#naruto">naruto</a></li>
+</ol>
+
+<h2 id="ff7">final fantasy vii</h2>
+
+<b><a href="https://archiveofourown.org/works/40705395" target="_blank">a hug a day keeps the crisis away</a> by digital cactus</b>
+<ul class="indent">
+    <li>AGS, sephiroth-centric. 3 chapters, 13k words. crisis core era, fluffy and humorous.</li>
+</ul>
+
+<b><a href="https://archiveofourown.org/works/56452642" target="_blank">a political act 🔞</a></b>
+<ul class="indent">
+    <li>barret/cloud. 4k words. some of my favorite clarret characterization; i could practically hear their voices as i read.</li>
+</ul>
+
+<b><a href="https://archiveofourown.org/works/20945465" target="_blank">a solitude of space 🔞 </a></b>
+<ul class="indent">
+    <li>sephiroth/cloud, sephiroth-centric. 90k words. post-canon, stardew valley setting, crack treated seriously. unironically some of the best sefikura characterization i've read to date.</li>
+</ul>
+
+<b><a href="https://archiveofourown.org/works/49183963" target="_blank">between each rib, an open door</a> by skadii</b>
+<ul class="indent">
+    <li>zack/cloud. 11k words. an absolutely heartwrenching read with heavy themes of grief.</li>
+</ul>
+
+<b><a href="https://archiveofourown.org/works/24027733" target="_blank">closing time 🔞 </a> by surveycorpsjean</b>
+<ul class="indent">
+    <li>zack/cloud. 9 chapters, 49k words. modern au/coffee shop au. enemies(ish) to friends to lovers.</li>
+</ul>
+
+<b><a href="https://archiveofourown.org/works/56004607" target="_blank">dizzy & shouting into the newly unfamiliar absence of morning</a> by feather_cadence</b>
+<ul class="indent">
+    <li>cloud-centric. 6k words. my favorite post-advent children fic, and perhaps my favorite cloud-centric fic of all time. it's quite heavy, but it's such a wonderful read, and i highly recommend it.</li>
+</ul>
+
+<b><a href="https://archiveofourown.org/series/4073740" target="_blank">downtime (series) 🔞</a> by deadly bride</b>
+<ul class="indent">
+    <li>barret/cloud. 3 fics, 18k words total. my favorite set of clarret fics.</li>
+</ul>
+
+<b><a href="https://archiveofourown.org/works/36594895" target="_blank">go the fuck to sleep</a> by digitalcactus</b>
+<ul class="indent">
+    <li>no ships. 4k words. a humorous fix-it, and one of my favorite general ff7 fics. zack and cloud prevent the nibelheim incident with one (1) sleep materia. </li>
+</ul>
+
+<b><a href="https://archiveofourown.org/works/6526645" target="_blank">greyscale 🔞</a> by angelicsentinel</b>
+<ul class="indent">
+    <li>zack/cloud. 14k words. fuck or die, zack and aerith live au.</li>
+</ul>
+
+<b><a href="https://archiveofourown.org/works/24656410" target="_blank">laimaudra</a> by creamoftomatosoup</b>
+<ul class="indent">
+    <li>no ships, cloud-centric. 4k words. daemon au. very well written. i'm a sucker for daemon aus despite not having read <i>his dark materials</i>; so much can be done with the concept.</li>
+</ul>
+
+<b><a href="https://archiveofourown.org/works/30084300" target="_blank">rectify 🔞</a> by unknownlifeform</b>
+<ul class="indent">
+    <li>sephiroth/cloud. 68 chapters, 260k words. gods & goddesses au, enemies to lovers, slow burn.</li>
+</ul>
+
+<b><a href="https://archiveofourown.org/works/1007161" target="_blank">restart</a> by boomchick</b>
+<ul class="indent">
+    <li>sephiroth & cloud. 16 chapters, 85k words at the time i'm writing this. i've made it a general rule to only rec finished fics in this list, but i'm making an exception for this one because it's my favorite time travel/time loop fic of all time. please give this a read if time loops pique your interest.</li>
+</ul>
+
+<b><a href="https://archiveofourown.org/works/18099563" target="_blank">the best laid plans</a> by loralei_dawson</b>
+<ul class="indent">
+    <li>no ships, cloud-centric. non-traditional time travel fix-it. cloud retains his memories, but not his mental maturity. holy shit i love this fic.</li>
+</ul>
+
+<b><a href="https://archiveofourown.org/works/362128" target="_blank">the fifth act</a> by sinnatious</b>
+<ul class="indent">
+    <li>no ships, cloud-centric. non-traditional time travel fix-it. cloud is a man on a mission. this fic is a classic.</li>
+</ul>
+
+<h2 id="fe3h">fire emblem: three houses</h2>
+
+<b><a href="https://archiveofourown.org/series/1847545" target="_blank">atoll</a> by shenyun5000</b>
+<ul class="indent">
+    <li>no ships. 12k words. modern au, hurt no comfort, tragecomedy. dimitri dies at the beginning.</li>
+</ul>
+
+<b><a href="https://archiveofourown.org/works/21388588" target="_blank">dianthus caryophyllus</a> by molnija</b>
+<ul class="indent">
+    <li>dimitri/felix, dimitri-centric. 1k words, canon divergent, hurt no comfort. abstract writing and written in 2nd person. writing inspiration.</li>
+</ul>
+
+<b><a href="https://archiveofourown.org/works/21242066" target="_blank">i think about you constantly, but always with your back turned to me or in profile.</a> by deplore</b>
+<ul class="indent">
+    <li>dimitri/felix, dimitri-centric. 1k words. canon divergent and written in an experimental, abstract style. writing inspiration.</li>
+</ul>
+
+<b><a href="https://archiveofourown.org/works/21552823" target="_blank">tower of terror</a> by lovemotions</b>
+<ul class="indent">
+    <li>sylvain & miklan, sylvain-centric. 6k words. a sylvain character study with themes of sibling abuse. writing inspiration.</li>
+</ul>
+
+<b><a href="https://archiveofourown.org/works/20755727" target="_blank">watchtower</a> by mareza</b>
+<ul class="indent">
+    <li>the faerghus four (dimitri, sylvain, felix, ingrid), sylvain-centric. 9k words. post-war sylvain character study.</li>
+</ul>
+
+<h2 id="genshin">genshin impact</h2>
+
+<b><a href="https://archiveofourown.org/works/54234187" target="_blank">click to apply</a> by kylohkay, queronea</b>
+<ul class="indent">
+    alhaitham/kaveh. 7k words. written in the form of job listings and emails. an incredibly funny read.
+</ul>
+
+<b><a href="https://archiveofourown.org/works/42661332" target="_blank">it returns to you</a> by heartslogos</b>
+<ul class="indent">
+    <li>no ships, nahida & alhaitham-centric. 55k words. one of my favorite fics of all time. not canon compliant, and follows nahida and alhaitham striking a deal pre-canon.</li>
+</ul>
+
+<h2 id="homestuck">homestuck</h2>
+
+<b><a href="https://archiveofourown.gay/works/10556322" target="_blank">m.c. escher that's my favourite mc</a> by unda</b>
+<ul class="indent">
+    <li>primarily dave/karkat and jake/dirk, but features a large amount of ships. not really a romance-centric fic, very plot-heavy. 44 chapters, 635k words. i fucking love this fic, and it's due for a reread.</li>
+</ul>
+
+<h2 id="naruto">naruto</h2>
+
+<b><a href="https://archiveofourown.org/works/1116142" target="_blank">a head of details, uncatalogued, illogical</a> by 100demons</b>
+<ul>
+    <li>team 7, kakashi-centric. 8k words. my favorite de-aging fic of all time. writing inspiration.</li>
+</ul>
+                    
+                   
+                    <!-- CONTENT END-->
+                </main>
+            </div>
+
+            <!-- SIDEBAR MARQUEE (VERTICAL) -->
+            <div class="sidebar">
+    <div class="overflow">
+        <div class="marquee">
+            <div class="marquee-items">
+
+                <!--
+                
+                <img src="/assets/images/stamps/" class="thumbnail" alt="ALT DA stamp">
+                
+                -->
+
+                <!-- palestine stamp -->
+                <a href="https://decolonizepalestine.com/" target="_blank"><img src="/assets/images/stamps/palestine-stamp.gif" class="thumbnail" alt="From the river to the sea Palestine will be free DA stamp"></a>
+
+                <!-- sonic stamp -->
+                <img src="/assets/images/stamps/sa2-stamp.png" class="thumbnail" alt="Sonic Adventure 2 DA stamp">
+
+                <!-- naruto stamp -->
+                <img src="/assets/images/stamps/naruto-sasuke-stamp.png" class="thumbnail" alt="ALT">
+
+                <!-- mlp stamp -->
+                <img src="/assets/images/stamps/mlp-stamp.gif" class="thumbnail" alt="My Little Pony DA stamp">
+
+                <!-- warriors stamp -->
+                <img src="/assets/images/stamps/warriors-stamp.png" class="thumbnail" alt="Warriors DA stamp">
+
+                <!-- homestuck stamps -->
+                <img src="/assets/images/stamps/beatdown-stamp.gif" class="thumbnail" alt="Dave Strider Bro Strider beatdown DA stamp">
+
+                <img src="/assets/images/stamps/dave-stamp.gif" class="thumbnail" alt="Homestuck Dave Strider DA stamp">
+
+                <img src="/assets/images/stamps/dirk-stamp.png" class="thumbnail" alt="Dirk Strider DA stamp">
+
+                <img src="/assets/images/stamps/karkat-microwave-stamp.gif" class="thumbnail" alt="Homestuck Karkat Vantas being microwaved DA stamp">
+
+                <!-- skyrim stamp -->
+                <img src="/assets/images/stamps/skyrim-stamp.gif" class="thumbnail" alt="Skyrim The Elder Scrolls 5 DA stamp">
+
+                <!-- omori stamp -->
+                <img src="/assets/images/stamps/omori-stamp.png" class="thumbnail" alt="OMORI DA stamp">
+
+                <!-- fe3h stamp-->
+                <img src="/assets/images/stamps/fe3h-stamp.png" class="thumbnail" alt="Fire Emblem Three Houses DA stamp">
+
+                <!-- ff7 stamp -->
+                <img src="/assets/images/stamps/ff7-stamp.gif" class="thumbnail" alt="Final Fantasy 7 DA stamp">
+
+                <!-- murderbot stamp -->
+                <img src="/assets/images/stamps/murderbot-stamp.png" class="thumbnail" alt="Murderbot Diaries DA stamp">
+
+                <!-- chiikawa stamps -->
+                <img src="/assets/images/stamps/usagi-eat-stamp.webp" class="thumbnail" alt="Usagi eating DA stamp">
+
+                <!-- signalis stamp -->
+                <img src="/assets/images/stamps/signalis-stamp.png" class="thumbnail" alt="Signalis DA stamp">
+
+                <!-- misc stamps -->
+                <img src="/assets/images/stamps/pinbear-stamp.png" class="thumbnail" alt="Pinbear DA stamp">
+
+                <img src="/assets/images/stamps/mmmmmmm-sour-patch-kids-stamp.png" class="thumbnail" alt="mmmmmmm sour patch kids DA stamp">
+            </div>
+
+            <!-- DUPLICATE VERTICAL -->
+            <div class="marquee-items">
+
+                <!--
+                
+                <img src="/assets/images/stamps/" class="thumbnail" alt="ALT DA stamp">
+                
+                -->
+
+                <!-- palestine stamp -->
+                <a href="https://decolonizepalestine.com/" target="_blank"><img src="/assets/images/stamps/palestine-stamp.gif" class="thumbnail" alt="From the river to the sea Palestine will be free DA stamp"></a>
+
+                <!-- sonic stamp -->
+                <img src="/assets/images/stamps/sa2-stamp.png" class="thumbnail" alt="Sonic Adventure 2 DA stamp">
+
+                <!-- naruto stamp -->
+                <img src="/assets/images/stamps/naruto-sasuke-stamp.png" class="thumbnail" alt="ALT">
+
+                <!-- mlp stamp -->
+                <img src="/assets/images/stamps/mlp-stamp.gif" class="thumbnail" alt="My Little Pony DA stamp">
+
+                <!-- warriors stamp -->
+                <img src="/assets/images/stamps/warriors-stamp.png" class="thumbnail" alt="Warriors DA stamp">
+
+                <!-- homestuck stamps -->
+                <img src="/assets/images/stamps/beatdown-stamp.gif" class="thumbnail" alt="Dave Strider Bro Strider beatdown DA stamp">
+
+                <img src="/assets/images/stamps/dave-stamp.gif" class="thumbnail" alt="Homestuck Dave Strider DA stamp">
+
+                <img src="/assets/images/stamps/dirk-stamp.png" class="thumbnail" alt="Dirk Strider DA stamp">
+
+                <img src="/assets/images/stamps/karkat-microwave-stamp.gif" class="thumbnail" alt="Homestuck Karkat Vantas being microwaved DA stamp">
+
+                <!-- skyrim stamp -->
+                <img src="/assets/images/stamps/skyrim-stamp.gif" class="thumbnail" alt="Skyrim The Elder Scrolls 5 DA stamp">
+
+                <!-- omori stamp -->
+                <img src="/assets/images/stamps/omori-stamp.png" class="thumbnail" alt="OMORI DA stamp">
+
+                <!-- fe3h stamp-->
+                <img src="/assets/images/stamps/fe3h-stamp.png" class="thumbnail" alt="Fire Emblem Three Houses DA stamp">
+
+                <!-- ff7 stamp -->
+                <img src="/assets/images/stamps/ff7-stamp.gif" class="thumbnail" alt="Final Fantasy 7 DA stamp">
+
+                <!-- murderbot stamp -->
+                <img src="/assets/images/stamps/murderbot-stamp.png" class="thumbnail" alt="Murderbot Diaries DA stamp">
+
+                <!-- chiikawa stamps -->
+                <img src="/assets/images/stamps/usagi-eat-stamp.webp" class="thumbnail" alt="Usagi eating DA stamp">
+
+                <!-- signalis stamp -->
+                <img src="/assets/images/stamps/signalis-stamp.png" class="thumbnail" alt="Signalis DA stamp">
+
+                <!-- misc stamps -->
+                <img src="/assets/images/stamps/pinbear-stamp.png" class="thumbnail" alt="Pinbear DA stamp">
+
+                <img src="/assets/images/stamps/mmmmmmm-sour-patch-kids-stamp.png" class="thumbnail" alt="mmmmmmm sour patch kids DA stamp">
+            </div>
+        </div>
+    </div>
+
+</div>
+
+            <!-- FOOTER MARQUEE (HORIZONTAL) -->
+            <div class="footer">
+    <div class="marquee-footer">
+        <div class="marquee-footer-content">
+            
+            <!--
+            
+            <img src="/assets/images/buttons/FILE" class="thumbnail" alt="ALT 88x31 button">
+
+            -->
+            
+            <!-- site buttons -->
+            <a href="https://nekoweb.org/" target="_blank"><img src="https://nekoweb.org/assets/buttons/button5.gif" class="thumbnail" alt="Nekoweb 88x31 button"></a><!-- button by max.nekoweb.org -->
+
+            <img src="/assets/images/buttons/best-viewed-on-desktop-button.gif" class="thumbnail" alt="Best viewed on Desktop 88x31 button">
+
+            <!-- palestine button -->
+            <a href="https://decolonizepalestine.com/" target="_blank"><img src="https://files.catbox.moe/izzae7.png" class="thumbnail" alt="Stand with Palestine 88x31 button"></a>
+
+            <img src="/assets/images/buttons/anti-nft-button.gif" class="thumbnail" alt="Anti-NFT 88x31 button">
+
+            <!-- nukochannel button -->
+            <a href="https://nukochannel.neocities.org" target="_blank"><img src="https://nukochannel.neocities.org/NukoChannelButton.gif" class="thumbnail" alt="Nukochannel 88x31 button"></a>
+
+            <!-- get firefox button -->
+            <a href="https://www.firefox.com/" target="_blank"><img src="/assets/images/buttons/get-firefox-button.gif" class="thumbnail" alt="Get Firefox 88x31 button"></a>
+
+            <!-- bitwarden button -->
+            <a href="https://bitwarden.com/" target="_blank"><img src="/assets/images/buttons/bitwarden-button.gif" class="thumbnail" alt="Bitwarden 88x31 button"></a>
+
+            <!-- ao3 button -->
+            <a href="https://archiveofourown.org/" target="_blank"><img src="https://files.catbox.moe/1cqxof.gif" class="thumbnail" alt="Archive of Our Own 88x31 button"></a>
+
+            <!-- status cafe button -->
+            <a href="https://status.cafe" target="_blank"><img src="https://status.cafe/assets/button.png" class="thumbnail" alt="Status Cafe button"/></a>
+
+            <!-- sonic buttons -->
+            <img src="/assets/images/buttons/tails-sonic-button.png" class="thumbnail" alt="Tails the Fox and Sonic the Hedgehog 88x31 button">
+
+            <!-- pokemon buttons -->
+            <img src="/assets/images/buttons/pichu-pikachu-button.gif" class="thumbnail" alt="Pichu Pikachu 88x31 button">
+
+            <!-- homestuck buttons -->
+            <img src="https://files.catbox.moe/0scbfz.png" class="thumbnail" alt="Download SBURB 88x31 button">
+
+            <img src="https://files.catbox.moe/ffesa0.jpg" class="thumbnail" alt="Homestuck 88x31 button">
+
+            <!-- trans flag button-->
+            <img src="https://files.catbox.moe/194w2x.png" class="thumbnail" alt="Trans Flag 88x31 button">
+
+            <!-- misc buttons -->
+            <img src="/assets/images/buttons/im-high-button.gif" class="thumbnail" alt="I'm High 88x31 button">
+        </div>
+
+        
+
+        <!-- DUPLICATE HORIZONTAL -->
+        <div class="marquee-footer-content">
+            
+            <!--
+            
+            <img src="/assets/images/buttons/FILE" class="thumbnail" alt="ALT 88x31 button">
+
+            -->
+            
+            <!-- site buttons -->
+            <a href="https://nekoweb.org/" target="_blank"><img src="https://nekoweb.org/assets/buttons/button5.gif" class="thumbnail" alt="Nekoweb 88x31 button"></a><!-- button by max.nekoweb.org -->
+
+            <img src="/assets/images/buttons/best-viewed-on-desktop-button.gif" class="thumbnail" alt="Best viewed on Desktop 88x31 button">
+
+            <!-- palestine button -->
+            <a href="https://decolonizepalestine.com/" target="_blank"><img src="https://files.catbox.moe/izzae7.png" class="thumbnail" alt="Stand with Palestine 88x31 button"></a>
+
+            <img src="/assets/images/buttons/anti-nft-button.gif" class="thumbnail" alt="Anti-NFT 88x31 button">
+
+            <!-- nukochannel button -->
+            <a href="https://nukochannel.neocities.org" target="_blank"><img src="https://nukochannel.neocities.org/NukoChannelButton.gif" class="thumbnail" alt="Nukochannel 88x31 button"></a>
+
+            <!-- get firefox button -->
+            <a href="https://www.firefox.com/" target="_blank"><img src="/assets/images/buttons/get-firefox-button.gif" class="thumbnail" alt="Get Firefox 88x31 button"></a>
+
+            <!-- bitwarden button -->
+            <a href="https://bitwarden.com/" target="_blank"><img src="/assets/images/buttons/bitwarden-button.gif" class="thumbnail" alt="Bitwarden 88x31 button"></a>
+
+            <!-- ao3 button -->
+            <a href="https://archiveofourown.org/" target="_blank"><img src="https://files.catbox.moe/1cqxof.gif" class="thumbnail" alt="Archive of Our Own 88x31 button"></a>
+
+            <!-- status cafe button -->
+            <a href="https://status.cafe" target="_blank"><img src="https://status.cafe/assets/button.png" alt="Status Cafe button"/></a>
+
+            <!-- sonic buttons -->
+            <img src="/assets/images/buttons/tails-sonic-button.png" class="thumbnail" alt="Tails the Fox and Sonic the Hedgehog 88x31 button">
+
+            <!-- pokemon buttons -->
+            <img src="/assets/images/buttons/pichu-pikachu-button.gif" class="thumbnail" alt="Pichu Pikachu 88x31 button">
+
+            <!-- homestuck buttons -->
+            <img src="https://files.catbox.moe/0scbfz.png" class="thumbnail" alt="Download SBURB 88x31 button">
+
+            <img src="https://files.catbox.moe/ffesa0.jpg" class="thumbnail" alt="Homestuck 88x31 button">
+
+            <!-- trans flag button-->
+            <img src="https://files.catbox.moe/194w2x.png" class="thumbnail" alt="Trans Flag 88x31 button">
+
+            <!-- misc buttons -->
+            <img src="/assets/images/buttons/im-high-button.gif" class="thumbnail" alt="I'm High 88x31 button">
+        </div>
+        
+    </div>
+
+    <div class="sticker-container2">
+        <img class="sticker" src="/assets/images/graphics/bunnyCandy.png">
+        <img class="sticker" src="/assets/images/graphics/dogPudding.png">
+    </div>
+</div>
+
+        <!-- CONTAINER END -->
+        </div>
+
+        <!-- SCRIPTS-->
+         
+         
+            
+         
+    </body>
+
+    
+
+</html>

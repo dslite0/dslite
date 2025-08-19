@@ -5,34 +5,24 @@
 
 @font-face {
     font-family: 'Onli';
-    src: url(/assets/fonts/Onli.ttf);
+    src: url('/assets/fonts/Onli.ttf');
+}
+
+@font-face {
+    font-family: 'DOS';
+    src: url('/assets/fonts/Px437_DOS-V_re_ANK24.woff2') format('woff2');
 }
 
 body {
     color: #896446;
     font-family: 'MS PGothic';
+    -webkit-font-smoothing: none;
     background-image: url('/assets/images/backgrounds/toroinoue-background.png');
     background-color:#ffffff;
     display: flex;
     min-height: 100dvh;
     align-items: center;
     justify-content: center;
-}
-
-/* CRT EFFECT */
-
-.crt::before {
-  content: " ";
-  display: block;
-  position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
-  z-index: 2;
-  background-size: 100% 2px, 3px 100%;
-  pointer-events: none;
 }
 
 
@@ -74,10 +64,8 @@ body {
 /* NAVBAR */
 .container > div.navbar {
     grid-area: navbar;
-    max-height: 480px;
-    min-height: 480px;
     width: 1fr;
-    overflow-y: auto;
+    overflow: auto;
 }
 
 .container > div.navbar > ul {
@@ -147,19 +135,14 @@ div.subdiv {
     height: 50px;
 }
 
-/* COUNTER */
-.counter {
-    position:fixed; 
-    z-index:1339; 
-    top:55px; 
-    right:3px;
-}
-
 /* SIDEBAR + MARQUEE */
 
+#sidebar-left {
+    height: 100%;
+}
+
 .nekolink {
-    border-top-style: ridge;
-    border-top-color: #ffbf65;
+
 }
 
 .scroll-r2l {
@@ -416,7 +399,6 @@ a {
 
 a:hover {
     color: #fffefb;
-    font-weight: 900;
     text-shadow: 0 0 5px #fffefb;
 }
 
@@ -444,13 +426,59 @@ ul.indent {
     display: flex;
 }
 
+.flex-wrap {
+    display: flex;
+    flex-wrap: wrap;
+}
+
 .center {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .thumbnail:hover {
     transform: scale(1.10);
 }
 
+.imgtxt {
+  width: fit-content;
+  height: fit-content;
+  display: inline-block;
+  position: relative;
+}
+
+.imgtxt span {
+  opacity: 1;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 99;
+  font-family: 'DOS';
+  font-size: 20px;
+  color: #FFF;
+  filter: drop-shadow(1px 1px 0 #a36359) 
+    drop-shadow(-1px 1px 0 #a36359)
+    drop-shadow(1px -1px 0 #a36359)
+    drop-shadow(-1px -1px 0 #a36359);
+}
+
+.imgtxt:hover span, .imgtxt:focus span {
+  opacity: 1;
+}
+
+.imgtxt:hover img, .imgtxt:focus img {
+  /* add hover effects like transform or filter to your images here! */
+}
+	
+#imglinks {
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+}
+
+#idbutton-box {
+    align-items: center;
+    justify-content: center;
+}

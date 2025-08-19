@@ -1,0 +1,11 @@
+<script>
+    const popover = document.getElementById("lightbox");
+
+    $('#gallery img').click(function (e) {
+        var image_src = $(this).attr("src");
+        $(this).attr('popovertarget', 'lightbox');
+        $('#lightbox').html('<img src="' + image_src + '" />');
+        popover.showPopover();
+        $('#lightbox').append('<button popovertarget="lightbox" popovertargetaction="hide">x</button>');
+    });
+</script>

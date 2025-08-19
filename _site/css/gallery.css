@@ -1,0 +1,145 @@
+:root {
+    /* if you want to keep it super simple, you can edit these top variables (variables = the things that start with --) to add some style and leave the rest of the code alone! */
+
+    /* colors */
+    --text: #000;
+    --background: #fcfaf7;
+    --accent-dark: #450606;
+    --accent: #450606;
+    --accent-light: #d2c3c3;
+
+    /* fonts */
+    --basefont: sans-serif;
+    --titlefont: monospace;
+    --text-size: 16px;
+
+    /* gallery styling */
+    --minimum-img-width: 150px;
+    --maximum-img-width: 400px;
+    --maximum-columns: 4;
+    --image-background: #fff;
+    --column-gap: var(--spacing);
+
+    /* misc styling */
+    --max-width: 800px;
+    --spacing: 15px;
+    --border-radius: 4px;
+    --underline: wavy var(--accent-light);
+    --border: dashed var(--accent) 1px;
+
+    /* calculations - don't worry about this */
+    --halfspacing: calc(var(--spacing) / 2);
+    --doublespacing: calc(var(--spacing) * 2)
+}
+
+* {
+    box-sizing: border-box;
+    max-width: 100%;
+    scrollbar-color: var(--accent);
+    -ms-overflow-style: none;
+    box-decoration-break:clone
+}
+
+body {
+    overflow-x: hidden;
+    overflow-y: scroll;
+    padding: var(--spacing) 5%;
+    background-color: var(--background);
+    color: var(--text);
+    font-family: var(--basefont);
+    font-size: var(--text-size);
+    line-height: 1.5em;
+}
+
+#to-top a {
+    position: fixed;
+    right: var(--spacing);
+    bottom: var(--spacing);
+    font-size: 50px;
+    text-decoration: none;
+    color: var(--accent-light);
+}
+
+/* flex */
+.flex {
+    display: flex;
+    flex-flow: row wrap;
+    gap: var(--halfspacing) var(--spacing)
+}
+
+.flex > * {
+    flex: 1 2 200px;
+    margin:0 auto;
+}
+
+/* stuff */
+
+.container {
+    margin: 0 auto;
+}
+
+
+
+
+/* image gallery */
+#gallery {
+    margin: var(--doublespacing) auto;
+    display: block;
+    text-align: center;
+    line-height: 1.2em;
+    font-size: .9em;
+}
+#gallery.columns {
+    columns: var(--minimum-img-width) var(--maximum-columns);
+    gap: var(--column-gap);
+}
+
+#gallery img {
+    margin: var(--spacing) auto;
+    max-width: min(var(--maximum-img-width), 100%);
+    display:block;
+    background-color:var(--image-background)
+}
+
+figure {
+    margin: var(--spacing) auto;
+    break-inside: avoid;
+}
+
+/* lightbox */
+#gallery img:hover {
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    outline: var(--border)
+}
+
+#lightbox {
+    border: none;
+    outline: none;
+}
+#lightbox img {
+  max-height:90vh;
+  max-width:90vw;
+}
+
+::backdrop {
+    backdrop-filter: blur(2px) brightness(80%);
+}
+
+#gallery:has(~ #lightbox:popover-open) {
+    pointer-events: none;
+}
+/* makes the lightbox work on small screens, like phones */
+@media only screen and (min-width: 600px) {
+    #lightbox button {
+        display: none;
+    }
+} 
+@media only screen and (max-width: 600px) {
+    #lightbox button {
+        display: block;
+        width:30px;
+        height:30px;
+        margin:10px auto;
+    }
+} 
