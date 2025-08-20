@@ -13,6 +13,10 @@
     src: url('/assets/fonts/Px437_DOS-V_re_ANK24.woff2') format('woff2');
 }
 
+* {
+    image-rendering: pixelated;
+}
+
 body {
     color: #896446;
     font-family: 'MS PGothic';
@@ -420,6 +424,21 @@ ul.indent {
     padding-left: 10px;
 }
 
+#s-m-t-tooltip {
+/* basic */
+ max-width: 220px;
+ z-index: 10;
+ margin: 24px 14px 7px 12px;
+/* style and design */
+ padding:3px;
+	-moz-border-radius:10px;
+	-webkit-border-radius:10px;
+ border-radius:0px;
+ border: solid #ff8282;
+ background-color: #ff8282;
+ color: #e9e9e9;
+}
+
 /* MISC */
 
 .flex {
@@ -464,11 +483,50 @@ ul.indent {
     drop-shadow(-1px -1px 0 #a36359);
 }
 
+.imgtxt:hover img {
+    transform: rotate(3deg);
+}
+
 .imgtxt:hover span, .imgtxt:focus span {
   opacity: 1;
 }
 
 .imgtxt:hover img, .imgtxt:focus img {
+  /* add hover effects like transform or filter to your images here! */
+}
+
+.imgtxt2 {
+  width: fit-content;
+  height: fit-content;
+  display: inline-block;
+  position: relative;
+}
+
+.imgtxt2 span {
+  opacity: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 99;
+  font-family: 'DOS';
+  font-size: 20px;
+  color: #FFF;
+  filter: drop-shadow(1px 1px 0 #a36359) 
+    drop-shadow(-1px 1px 0 #a36359)
+    drop-shadow(1px -1px 0 #a36359)
+    drop-shadow(-1px -1px 0 #a36359);
+}
+
+.imgtxt2:hover img {
+    transform: rotate(3deg);
+}
+
+.imgtxt2:hover span, .imgtxt2:focus span {
+  opacity: 1;
+}
+
+.imgtxt2:hover img, .imgtxt2:focus img {
   /* add hover effects like transform or filter to your images here! */
 }
 	

@@ -18,6 +18,9 @@
 <!-- CSS -->
 <link rel="stylesheet" href="/css/style.css" />
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
+<script src="https://static.tumblr.com/lspzyz3/xloqk6cgp/jquery.style-my-tooltips.js"></script>
+
 <!-- CLICKSPLOSION SCRIPT -->
 <script type="text/javascript">
     // <![CDATA[
@@ -207,7 +210,7 @@
         </a>
 
         <a href="/resources" class="imgtxt">
-            <img src="/assets/images/graphics/bookstack.png" alt="" height="100">
+            <img src="/assets/images/graphics/bookstack.png" alt="" height="100" style="padding-left:5px;" >
             <span>resources</span>
         </a>
 
@@ -236,6 +239,7 @@
     <div class="navbar-header-middle">misc</div>
     <ul>
         <li><a href="/fic-recs">fic recs</a></li>
+        <li><a href="/gallery">gallery</a></li>
     </ul>
 </div>
 
@@ -257,6 +261,12 @@
     <img src="https://nukochannel.neocities.org/NukoImg/Activities/Daily%20life/nukoCarryBox.gif" class="emote">
 </h1>
 
+<div id="statuscafe">
+    <div id="statuscafe-username" align="center"></div>
+    <div id="statuscafe-content" align="center"></div>
+</div>
+<script src="https://status.cafe/current-status.js?name=strife" defer></script>
+
 <p align="center">this site is a place for me to express myself as well as a creative outlet. while things are always gonna be under construction, you're free to take a look around <img src="https://nukochannel.neocities.org/NukoImg/Activities/Hobbies/nukoBrowsing.gif" class="emote"></p>
 
 <p align="center">i'll be blogging and making pages centered around my interests and hobbies, and really whatever comes to mind that i feel like adding <img src="https://nukochannel.neocities.org/NukoImg/Reactions/Happy/nukoJoy.gif" class="emote"></p>
@@ -264,6 +274,7 @@
 <p align="center">please keep in mind that i am an adult and might post mature or explicit content from time to time, though pages will be properly marked off as nsfw (🔞) where needed</p>
 
 <p align="center">this site is designed with desktop in mind, so things are going to look funky on mobile, but it should still work.</p>
+<p align="center">sign my guestbook while you're here!</p>
 
 <p align="center">
     <a href="https://strife.atabook.org/" class="imgtxt">
@@ -272,20 +283,18 @@
     </a>
 </p>
 
-<p align="center">sign my guestbook while you're here!</p>
+<div style="display:flex; justify-content: center;">
+    <div class="subdiv" style="aspect-ratio:1/1; width: 50%; padding-top:0px;">
+    
+        <p align="center"><b>current hyperfixation:</b></p>
 
-<div id="statuscafe">
-    <div id="statuscafe-username" align="center"></div>
-    <div id="statuscafe-content" align="center"></div>
-</div>
-<script src="https://status.cafe/current-status.js?name=strife" defer></script>
-
-<br>
-
-<div class="subdiv" style="padding-top: 10px;">
-    <p align="center"><b>hyperfixation:</b> n/a</p>
-    <img src="/assets/images/graphics/cloud-chocobo.png" width="250" class="center">
-    <br>
+        <a href="javascript:void(0);" class="imgtxt2">
+            <img src="/assets/images/graphics/computer 3.png" alt="" class="center" width="75%">
+            <span>webdev<br>(2025/08/04)</span>
+        </a>
+    
+        <br>
+    </div>
 </div>
 
 
@@ -566,7 +575,17 @@
         </div>
 
         <!-- SCRIPTS-->
-         
+         <script>
+    (function($){$(document).ready(function(){
+ $("[title]").style_my_tooltips({
+ tip_follows_cursor: true,
+ tip_delay_time:10,
+ tip_fade_speed:10,
+ attribute:"title"
+ });
+ });
+ })(jQuery);
+</script>
          
             
          

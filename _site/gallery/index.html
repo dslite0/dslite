@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+        <meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title></title>
+
+<!-- EMBED -->
+<meta content="STRIFE!" property="og:title" />
+<meta content="my corner of the web" property="og:description" />
+<meta content="https://strife.nekoweb.org" property="og:url" />
+<meta content="/assets/images/graphics/cloud-chocobo.png" property="og:image" />
+<meta content="#ffe195" data-react-helmet="true" name="theme-color" />
+<meta name="twitter:card" content="summary_large_image">
+
+<!-- CSS -->
+<link rel="stylesheet" href="/css/gallery.css" />
+
+<!-- SCRIPT -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js" charset="utf-8"></script>
+
+    </head>
+
+	<body>
+
+        <div id="top"></div>
+        <div id="to-top"><a href="#top" title="back to top">^</a></div>
+        <main>
+            
+<div id="container">
+    <a href="/index.html"><- back</a>
+    
+    <div class="box">
+        <h1>2025</h1>
+    
+        <div id="gallery" class="columns">
+    
+            <figure>
+                <img src="/assets/images/gallery/2025-07-02-artfight-hozeykun.webp">
+            </figure>
+    
+            <figure>
+                <img src="/assets/images/gallery/2025-06-24-lea-reference.webp">
+            </figure>
+    
+            <figure>
+                <img src="/assets/images/gallery/2025-06-06-suyin.webp">
+            </figure>
+    
+            <figure>
+                <img src="/assets/images/gallery/2025-05-23-jacket-comm.webp">
+            </figure>
+    
+            <figure>
+                <img src="/assets/images/gallery/2025-05-22-scoobi-comm.webp">
+            </figure>
+    
+            <figure>
+                <img src="/assets/images/gallery/2025-05-20-luka.webp">
+            </figure>
+    
+        </div>
+    </div>
+    
+    <div class="box">
+        <h1>2024</h1>
+    
+        <div id="gallery" class="columns">
+    
+            <figure>
+                <img src="/assets/images/gallery/2024-10-26-cloud.webp">
+            </figure>
+    
+            <figure>
+                <img src="/assets/images/gallery/2024-08-31-cloud.webp">
+            </figure>
+    
+            <figure>
+                <img src="/assets/images/gallery/2024-04-26-cloud.webp">
+            </figure>
+    
+            <figure>
+                <img src="/assets/images/gallery/2024-01-27-cloud.webp">
+            </figure>
+    
+            <figure>
+                <img src="/assets/images/gallery/2024-01-13-corinne.webp">
+            </figure>
+    
+            <figure>
+                <img src="/assets/images/gallery/2024-01-11-ami.webp">
+            </figure>
+    
+        </div>
+    </div>
+    
+    <div class="box">
+        <h1>2023</h1>
+    
+        <div id="gallery" class="columns">
+    
+            <figure>
+                <img src="/assets/images/gallery/2023-09-30-hyewol.webp">
+            </figure>
+    
+            <figure>
+                <img src="/assets/images/gallery/2023-09-22-alzir.webp">
+            </figure>
+    
+            <figure>
+                <img src="/assets/images/gallery/2023-09-18-marudeva.webp">
+            </figure>
+    
+        </div>
+    </div>
+    
+    <div class="box">
+        <h1>2021</h1>
+    
+        <div id="gallery" class="columns">
+    
+            <figure>
+                <img src="/assets/images/gallery/2021-05-20-zehava.webp">
+            </figure>
+    
+        </div>
+    </div>
+    
+    <div class="box">
+        <h1>2020</h1>
+    
+        <div id="gallery" class="columns">
+    
+            <figure>
+                <img src="/assets/images/gallery/2020-12-24-dave-dirk.webp">
+            </figure>
+    
+            <figure>
+                <img src="/assets/images/gallery/2020-11-11-amara.webp">
+            </figure>
+    
+            <figure>
+                <img src="/assets/images/gallery/2020-09-07-dimilix.webp">
+            </figure>
+    
+            <figure>
+                <img src="/assets/images/gallery/2020-07-11-trina-comm.webp">
+            </figure>
+    
+            <figure>
+                <img src="/assets/images/gallery/2020-06-03-undyne.webp">
+            </figure>
+    
+            <figure>
+                <img src="/assets/images/gallery/2020-02-16-dimilix.webp">
+            </figure>
+    
+        </div>
+    </div>
+    
+    <div id="lightbox" popover></div>
+</div>
+        </main>
+
+        <script>
+    const popover = document.getElementById("lightbox");
+
+    $('#gallery img').click(function (e) {
+        var image_src = $(this).attr("src");
+        $(this).attr('popovertarget', 'lightbox');
+        $('#lightbox').html('<img src="' + image_src + '" />');
+        popover.showPopover();
+        $('#lightbox').append('<button popovertarget="lightbox" popovertargetaction="hide">x</button>');
+    });
+    
+</script>
+
+    </body>
+</html>

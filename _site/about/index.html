@@ -18,6 +18,9 @@
 <!-- CSS -->
 <link rel="stylesheet" href="/css/style.css" />
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
+<script src="https://static.tumblr.com/lspzyz3/xloqk6cgp/jquery.style-my-tooltips.js"></script>
+
 <!-- CLICKSPLOSION SCRIPT -->
 <script type="text/javascript">
     // <![CDATA[
@@ -207,7 +210,7 @@
         </a>
 
         <a href="/resources" class="imgtxt">
-            <img src="/assets/images/graphics/bookstack.png" alt="" height="100">
+            <img src="/assets/images/graphics/bookstack.png" alt="" height="100" style="padding-left:5px;" >
             <span>resources</span>
         </a>
 
@@ -236,6 +239,7 @@
     <div class="navbar-header-middle">misc</div>
     <ul>
         <li><a href="/fic-recs">fic recs</a></li>
+        <li><a href="/gallery">gallery</a></li>
     </ul>
 </div>
 
@@ -248,18 +252,45 @@
 <h1>about me</h1>
 
 <div id="idbutton-box" class="flex-wrap">
+    <img src="https://i.imgur.com/WwInvLz.png" alt="Vietnamese">
+    <img src="https://i.imgur.com/NlmYDAS.png" alt="American">
+    <img src="https://i.imgur.com/WFpPzZn.png" alt="Student">
+    <img src="https://i.imgur.com/oaolHwW.png" alt="Artist (Paint palette)">
     <img src="https://i.imgur.com/ePOliyb.png" alt="He/Him (Trans flag)">
+    <img src="https://i.imgur.com/sh5xjiu.png" alt="Genderfluid (Genderfluid flag)">
+    <img src="https://i.imgur.com/FvSLVNv.png" alt="Arospec (Arospec flag)">
+    <img src="https://i.imgur.com/mtHAEL4.png" alt="Bisexual (Bisexual flag)">
+    <img src="https://i.imgur.com/Y7MOfeL.png" alt="Neurodivergent">
+    <img src="https://i.imgur.com/6YousWl.png" alt="INTP">
+    <img src="https://i.imgur.com/XuRl5B2.png" alt="Enneagram 5">
+    <img src="https://i.imgur.com/Wn6vGC1.png" alt="Virgo">
+    <img src="https://i.imgur.com/eoyJyml.png" alt="Cancer Moon">
+    <img src="https://i.imgur.com/JGXHlFX.png" alt="Sagittarius Rising">
+    <img src="https://i.imgur.com/D3b79hf.png" alt="Homestuck Hemospectrum: Jadeblood">
+    <img src="https://i.imgur.com/1fpzX0w.png" alt="Homestuck Moon: Derse">
 </div>
 
 <p>i honestly don't know what to put here. i'm just some guy lol. </p>
 
 <p>my interest in webdev started 2025/08/04. i started mainly because i wanted a backup option to <a href="https://toyhou.se/asphodels">toyhou.se</a> for storing my characters. i ended up going down a webdev rabbithole and now here i am</p>
 
-<p>i like systems. i like figuring out and learning systems. it was kind of an inevitability that i'd end up fixating on webdev at some point, i'm really just surprised it didn't happen sooner.</p>
-
 <p>my media interests fluctuate a lot because my brain is wired to latch onto Shiny New Thing, and i get bored easily. the stamps on the right sidebar reflect some of the fandoms i've been a part of (along with some other stuff).</p>
 
-<h2>other shit</h2>
+<h2>interests</h2>
+
+<div id="idbutton-box" class="flex-wrap">
+    <img src="https://i.imgur.com/LGvol4P.png" alt="Art">
+    <img src="https://i.imgur.com/lB92wkt.png" alt="Fiction">
+    <img src="https://i.imgur.com/vK3lNF1.png" alt="Tarot">
+    <img src="/assets/images/idbuttons/Fire_Emblem.png" alt="Fire Emblem">
+    <img src="https://i.imgur.com/iJZWqi6.png" alt="Homestuck">
+    <img src="https://i.imgur.com/r8v91MH.png" alt="Minecraft">
+    <img src="https://i.imgur.com/8GgdVkW.png" alt="Pokemon">
+    <img src="https://i.imgur.com/Ut9RRot.png" alt="Sonic">
+</div>
+
+<h2>quizzes</h2>
+
 <a href="https://www.dragonflycave.com/quizzes/what-type-are-you/ice"><img class="site-button cemt" src="https://www.dragonflycave.com/typequiz/ice.png" alt="Ice" title="I am a Ice-type!""></a>
                     
                    
@@ -514,7 +545,17 @@
         </div>
 
         <!-- SCRIPTS-->
-         
+         <script>
+    (function($){$(document).ready(function(){
+ $("[title]").style_my_tooltips({
+ tip_follows_cursor: true,
+ tip_delay_time:10,
+ tip_fade_speed:10,
+ attribute:"title"
+ });
+ });
+ })(jQuery);
+</script>
          
             
          

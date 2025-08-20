@@ -72,15 +72,6 @@ body {
     margin:0 auto;
 }
 
-/* stuff */
-
-.container {
-    margin: 0 auto;
-}
-
-
-
-
 /* image gallery */
 #gallery {
     margin: var(--doublespacing) auto;
@@ -143,3 +134,9 @@ figure {
         margin:10px auto;
     }
 } 
+
+/* formatting */
+
+h1 {
+    text-align: center;
+}
