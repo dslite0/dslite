@@ -383,6 +383,11 @@ a .site-button:hover {
     cursor: pointer;
 }
 
+.idbutton:hover {
+    transform: translateY(-1px);
+    filter: drop-shadow(2px 2px 0px #e9c177);
+}
+
 
 /* TEXT FORMATTING */
 
