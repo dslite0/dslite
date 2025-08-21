@@ -145,9 +145,6 @@ div.subdiv {
     height: 100%;
 }
 
-.nekolink {
-
-}
 
 .scroll-r2l {
   animation: scroll-r2l 10s linear infinite;
@@ -496,10 +493,6 @@ ul.indent {
   opacity: 1;
 }
 
-.imgtxt:hover img, .imgtxt:focus img {
-  /* add hover effects like transform or filter to your images here! */
-}
-
 .imgtxt2 {
   width: fit-content;
   height: fit-content;
@@ -529,10 +522,6 @@ ul.indent {
 
 .imgtxt2:hover span, .imgtxt2:focus span {
   opacity: 1;
-}
-
-.imgtxt2:hover img, .imgtxt2:focus img {
-  /* add hover effects like transform or filter to your images here! */
 }
 	
 #imglinks {

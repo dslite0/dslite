@@ -1,3 +1,4 @@
+
 const { DateTime } = require("luxon");
 const TIME_ZONE = "America/New_York";
 
@@ -6,11 +7,13 @@ const TIME_ZONE = "America/New_York";
 module.exports = function(eleventyConfig) {
     eleventyConfig.addPassthroughCopy("src/css/");
     eleventyConfig.addPassthroughCopy("src/assets/");
+    eleventyConfig.addPassthroughCopy("src/js/");
     eleventyConfig.addPassthroughCopy("src/**/*.png");
     eleventyConfig.addPassthroughCopy("src/**/*.css");
     
     eleventyConfig.addWatchTarget("src/css/");
     eleventyConfig.addWatchTarget("src/assets/");
+    eleventyConfig.addWatchTarget("src/js/");
 
     eleventyConfig.addCollection('posts', function(collectionApi) {
         return collectionApi.getFilteredByGlob([ 'src/blog/**/*.html', 'src/blog/**/*.md' ]);
