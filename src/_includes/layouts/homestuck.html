@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>{{title}}</title>
+
+        <!-- EMBED -->
+        <meta content="STRIFE!" property="og:title" />
+        <meta content="my corner of the web" property="og:description" />
+        <meta content="https://strife.nekoweb.org" property="og:url" />
+        <meta content="/assets/images/graphics/cloud-chocobo.png" property="og:image" />
+        <meta content="#ffe195" data-react-helmet="true" name="theme-color" />
+        <meta name="twitter:card" content="summary_large_image">
+
+        <!-- CSS -->
+        <link rel="stylesheet" href="/css/homestuck.css" />
+    </head>
+
+	<body>
+        
+        <main>
+            
+            <div id="container">
+
+                <nav id="navbar">
+                    <a href="/index.html">HOME</a>
+                    <img src="/assets/images/pixels/candycorn.gif">
+                    <ul>
+                        <li><a href="/about">ABOUT</a></li>
+                        <li><a href="/blog">BLOG</a></li>
+                    </ul>
+                    <img src="/assets/images/pixels/candycorn.gif">
+                    <ul>
+                        <li><a href="/resources">RESOURCES</a></li>
+                        <li><a href="/links">LINKS</a></li>
+                    </ul>
+                </nav>
+
+                <div id="content">
+                    
+                    <div class="box">
+                        {{ content | safe }}
+                    </div>
+
+                </div>
+
+            </div>
+
+        </main>
+
+        <script src="/js/tooltip.js"></script>
+
+    </body>
+</html>
